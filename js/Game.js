@@ -4,6 +4,7 @@ SideScroller.Game = function(){};
 
 SideScroller.Game.prototype = {
   preload: function() {
+      //if true then advanced profiling, including the fps rate, fps min/max and msMin/msMax are updated
       this.game.time.advancedTiming = true;
     },
   create: function() {
@@ -53,7 +54,7 @@ SideScroller.Game.prototype = {
     this.coinSound = this.game.add.audio('coin');
   },
   
- //find objects in a Tiled layer that containt a property called "type" equal to a certain value
+ //find objects in a Tiled layer that contain a property called "type" equal to a certain value
   findObjectsByType: function(type, map, layerName) {
     var result = new Array();
     map.objects[layerName].forEach(function(element){
@@ -199,8 +200,7 @@ SideScroller.Game.prototype = {
       //we use this to keep track whether it's ducked or not
       this.player.isDucked = true;
   },
-  render: function()
-    {
+  render: function() {
         this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");   
         this.game.debug.bodyInfo(this.player, 0, 80);   
     }
