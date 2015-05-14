@@ -9,8 +9,8 @@ SideScroller.Boot = function(){};
 //setting game configuration and loading the assets for the loading screen
 SideScroller.Boot.prototype = {
   
+    //preloads assets used in the loading screen
     preload: function() {
-        //assets used in the loading screen
         this.load.image('preloadbar', 'assets/images/preloader-bar.png');
         //this.load.image('preloadscreen', 'assets/images/preloadscreen.png');
     },
