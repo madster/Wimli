@@ -1,123 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="50" height="6" tilewidth="70" tileheight="70">
- <tileset firstgid="1" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2">
-  <image source="../images/tiles_spritesheet.png" width="790" height="934"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="78" height="7" tilewidth="64" tileheight="64" nextobjectid="27">
+ <tileset firstgid="1" name="spritesheet_ground" tilewidth="128" tileheight="128">
+  <image source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/Spritesheets/spritesheet_ground.png" width="1024" height="2048"/>
  </tileset>
- <layer name="backgroundLayer" width="50" height="6">
+ <tileset firstgid="129" name="uncolored_plain2" tilewidth="64" tileheight="64">
+  <image source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Background elements (110 assets)/Samples/uncolored_plain2.png" width="1024" height="448"/>
+ </tileset>
+ <tileset firstgid="241" name="poop" tilewidth="56" tileheight="47">
+  <image source="../../../Assets/Doggy_graphics/Vectors/poop.png" width="56" height="47"/>
+ </tileset>
+ <layer name="backgroundLayer" width="78" height="7">
   <data encoding="csv">
-139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,
-139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,
-139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,
-139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,
-139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,
-139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139,139
+129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,129,130,131,132,133,134,135,136,137,138,139,140,141,142,
+145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,145,146,147,148,149,150,151,152,153,154,155,156,157,158,
+161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,161,162,163,164,165,166,167,168,169,170,171,172,173,174,
+177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,177,178,179,180,181,182,183,184,185,186,187,188,189,190,
+193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,193,194,195,196,197,198,199,200,201,202,203,204,205,206,
+209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,209,210,211,212,213,214,215,216,217,218,219,220,221,222,
+225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,225,226,227,228,229,230,231,232,233,234,235,236,237,238
 </data>
  </layer>
- <layer name="blockedLayer" width="50" height="6">
+ <layer name="blockedLayer" width="78" height="7">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,89,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,89,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,89,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,1,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,
-96,96,96,96,96,96,96,96,96,0,0,96,96,96,96,96,96,96,96,96,96,0,0,0,96,96,96,96,96,96,96,0,0,0,96,96,96,96,96,96,96,96,96,96,96,96,96,96,96,96
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,57,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,57,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,0,9,0,9,0,33,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33,0,0,0,0,0,0,0,0,0,0,0,0,
+9,0,1,0,0,0,17,0,9,0,9,0,9,0,1,0,0,0,17,0,1,0,0,0,17,0,9,0,9,0,9,0,9,0,9,0,1,0,0,0,0,0,17,0,9,0,9,0,9,0,9,0,9,0,9,0,9,0,73,0,2,0,2,0,81,0,9,0,9,0,9,0,9,0,9,0,9,0
 </data>
  </layer>
- <objectgroup name="objectsLayer" width="50" height="6">
-  <object gid="143" x="526" y="219">
+ <objectgroup name="objectsLayer">
+  <object id="8" gid="241" x="612" y="321.667">
    <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object gid="143" x="647" y="140">
+  <object id="18" gid="241" x="1067" y="210">
    <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object gid="143" x="792" y="174">
+  <object id="19" gid="241" x="1448" y="206">
    <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object gid="143" x="910" y="243">
+  <object id="20" gid="241" x="2533" y="72">
    <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object gid="143" x="1435" y="198">
+  <object id="21" gid="241" x="3924" y="85">
    <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object gid="143" x="1514" y="137">
+  <object id="22" gid="241" x="4351" y="180">
    <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object gid="143" x="1710" y="243">
+  <object id="23" gid="241" x="4466" y="110">
    <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object gid="143" x="1644" y="162">
+  <object id="24" gid="241" x="4601" y="61">
    <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object gid="143" x="1362" y="286">
+  <object id="25" gid="241" x="4720" y="120">
    <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object gid="143" x="2489" y="228">
+  <object id="26" gid="241" x="4840" y="184">
    <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
-   </properties>
-  </object>
-  <object gid="143" x="2610" y="137">
-   <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
-   </properties>
-  </object>
-  <object gid="143" x="2789" y="131">
-   <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
-   </properties>
-  </object>
-  <object gid="143" x="2947" y="228">
-   <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
-   </properties>
-  </object>
-  <object gid="143" x="3107" y="280">
-   <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
-   </properties>
-  </object>
-  <object gid="143" x="2032" y="328">
-   <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
-   </properties>
-  </object>
-  <object gid="143" x="344" y="283">
-   <properties>
-    <property name="sprite" value="goldCoin"/>
-    <property name="type" value="coin"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
  </objectgroup>

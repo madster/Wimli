@@ -1,8 +1,14 @@
 var SideScroller = SideScroller || {};
 
+var gravity = 1000;    
+var outOfBoundsHeight = 400;
+var startPosX = 100
+var startPosY = 300;
+
 SideScroller.Game = function () {};
 
 SideScroller.Game.prototype = {
+
     preload: function () {
         //if true then advanced profiling, including the fps rate, fps min/max and msMin/msMax are updated
         this.game.time.advancedTiming = true;
@@ -11,29 +17,32 @@ SideScroller.Game.prototype = {
         this.map = this.game.add.tilemap('level1');
 
         //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
-        this.map.addTilesetImage('tiles_spritesheet', 'gameTiles');
-
+        this.map.addTilesetImage('spritesheet_ground', 'blockedTiles');
+        this.map.addTilesetImage('uncolored_plain2', 'background');
+        
         //create layers
         this.backgroundlayer = this.map.createLayer('backgroundLayer');
         this.blockedLayer = this.map.createLayer('blockedLayer');
 
-        //collision on blockedLayer
+        //collision with anything in blockedLayer. 
+        //params = (start, stop, collides, layer, recalculate)
         this.map.setCollisionBetween(1, 5000, true, 'blockedLayer');
 
         //resizes the game world to match the layer dimensions
         this.backgroundlayer.resizeWorld();
-
-        //create coins
-        this.createCoins();
+        
+        //create poops
+        this.createPoops();
 
         //create player
-        this.player = this.game.add.sprite(100, 300, 'player');
+        //params = (game, startPosX,startPosY, key, frame)
+        this.player = this.game.add.sprite(startPosX, startPosY, 'player');
 
         //enable physics on the player
         this.game.physics.arcade.enable(this.player);
 
         //player gravity
-        this.player.body.gravity.y = 1000;
+        this.player.body.gravity.y = gravity;
 
         //properties when the player is ducked and standing, so we can use in update()
         var playerDuckImg = this.game.cache.getImage('playerDuck');
@@ -57,7 +66,7 @@ SideScroller.Game.prototype = {
         this.initGameController();
 
         //sounds
-        this.coinSound = this.game.add.audio('coin');
+        this.poopSound = this.game.add.audio('poop');
     },
 
     //find objects in a Tiled layer that contain a property called "type" equal to a certain value
@@ -86,7 +95,7 @@ SideScroller.Game.prototype = {
     update: function () {
         //collision
         this.game.physics.arcade.collide(this.player, this.blockedLayer, this.playerHit, null, this);
-        this.game.physics.arcade.overlap(this.player, this.coins, this.collect, null, this);
+        this.game.physics.arcade.overlap(this.player, this.poops, this.collect, null, this);
 
         //only respond to keys and keep the speed if the player is alive
         if (this.player.alive) {
@@ -113,31 +122,26 @@ SideScroller.Game.prototype = {
             if (this.player.x >= this.game.world.width) {
                 this.game.state.start('Game');
             }
+            
+            //game over if player falls off platform
+            if(this.player.y > outOfBoundsHeight) {
+                this.playerDead();
+            }
         }
 
     },
     playerHit: function (player, blockedLayer) {
-        //if hits on the right side, die
-        if (player.body.blocked.right) {
+        //if hits on the left side, die. This was changed from the right side for testing purposes.
+        //This will need to be changed at some point as collision (apart from with an enemy) shouldn't cause death.
+        if (player.body.blocked.left) {
 
             console.log(player.body.blocked);
-
-            //set to dead (this doesn't affect rendering)
-            this.player.alive = false;
-
-            //stop moving to the right
-            this.player.body.velocity.x = 0;
-
-            //change sprite image
-            this.player.loadTexture('playerDead');
-
-            //go to gameover after a few miliseconds
-            this.game.time.events.add(1500, this.gameOver, this);
+            this.playerDead();
         }
     },
     collect: function (player, collectable) {
         //play audio
-        this.coinSound.play();
+        this.poopSound.play();
 
         //remove sprite
         collectable.destroy();
@@ -185,13 +189,14 @@ SideScroller.Game.prototype = {
         }
 
     },
-    //create coins
-    createCoins: function () {
-        this.coins = this.game.add.group();
-        this.coins.enableBody = true;
-        var result = this.findObjectsByType('coin', this.map, 'objectsLayer');
+    
+    //create collectable poops
+    createPoops: function () {
+        this.poops = this.game.add.group();
+        this.poops.enableBody = true;
+        var result = this.findObjectsByType('poo', this.map, 'objectsLayer');
         result.forEach(function (element) {
-            this.createFromTiledObject(element, this.coins);
+            this.createFromTiledObject(element, this.poops);
         }, this);
     },
     gameOver: function () {
@@ -211,9 +216,9 @@ SideScroller.Game.prototype = {
     },
     
     playerJump: function () {
-        this.player.loadTexture('playerJump');
         if (this.player.body.blocked.down) {
             this.player.body.velocity.y -= 700;
+            this.player.loadTexture('playerJump');
         }
     },
     playerDuck: function () {
@@ -223,6 +228,20 @@ SideScroller.Game.prototype = {
 
         //we use this to keep track whether it's ducked or not
         this.player.isDucked = true;
+    },
+    playerDead: function () {
+        //set to dead (this doesn't affect rendering)
+        this.player.alive = false;
+
+        //stop moving to the right
+        this.player.body.velocity.x = 0;
+
+        //change sprite image
+        this.player.loadTexture('playerDead');
+
+        //go to gameover after a few miliseconds
+        this.game.time.events.add(1500, this.gameOver, this);
+        
     },
     render: function () {
 

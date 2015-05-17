@@ -14,16 +14,16 @@ SideScroller.Preload.prototype = {
 
     //load game assets
     this.load.tilemap('level1', 'assets/tilemaps/level1.json', null, Phaser.Tilemap.TILED_JSON);
-    this.load.image('gameTiles', 'assets/images/tiles_spritesheet.png');
+    this.load.image('blockedTiles', 'assets/images/spritesheet_ground.png');
+    this.load.image('background', 'assets/images/uncolored_plain2.png');
     this.load.image('player', 'assets/images/player.png');
     this.load.image('playerDuck', 'assets/images/player_duck.png');
     this.load.image('playerJump', 'assets/images/player_jump.png');  
     this.load.image('playerDead', 'assets/images/player_dead.png');  
     this.load.image('playerBack', 'assets/images/player_back.png');
-      
     this.load.image('poop', 'assets/images/poop.png');
-    this.load.image('goldCoin', 'assets/images/goldCoin.png');
-    this.load.audio('coin', ['assets/audio/coin.ogg', 'assets/audio/coin.mp3']);
+    this.load.audio('poop', ['assets/audio/bark.ogg', 'assets/audio/bark.mp3']);
+    
   },
   create: function() {
     this.state.start('Game');

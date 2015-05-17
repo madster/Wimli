@@ -1,6 +1,7 @@
 var SideScroller = SideScroller || {};
 
-SideScroller.game = new Phaser.Game(746, 420, Phaser.AUTO, '');
+// Phaser.AUTO wasn't working properly so have changed to CANVAS as a temp fix
+SideScroller.game = new Phaser.Game(746, 448, Phaser.CANVAS, '');
 
 SideScroller.game.state.add('Boot', SideScroller.Boot);
 SideScroller.game.state.add('Preload', SideScroller.Preload);
