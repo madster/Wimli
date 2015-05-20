@@ -22,7 +22,13 @@ SideScroller.Preload.prototype = {
     this.load.image('playerDead', 'assets/images/player_dead.png');  
     this.load.image('playerBack', 'assets/images/player_back.png');
     this.load.image('poop', 'assets/images/poop.png');
+    this.load.image('heart', 'assets/images/heart.png'); 
+    this.load.image('healthFull', 'assets/images/health.png');    
+    this.load.image('healthHalf', 'assets/images/healthHalf.png');  
+    this.load.image('healthEmpty', 'assets/images/healthEmpty.png');  
+    this.load.image('enemy', 'assets/images/enemyBee.png');
     this.load.audio('poop', ['assets/audio/bark.ogg', 'assets/audio/bark.mp3']);
+    this.load.audio('heart', 'assets/audio/health.ogg');
     
   },
   create: function() {

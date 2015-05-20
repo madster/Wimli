@@ -25,7 +25,7 @@
         {
          "draworder":"topdown",
          "height":0,
-         "name":"objectsLayer",
+         "name":"itemLayer",
          "objects":[
                 {
                  "gid":241,
@@ -196,6 +196,159 @@
                  "width":0,
                  "x":4840,
                  "y":184
+                }, 
+                {
+                 "gid":242,
+                 "height":0,
+                 "id":39,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"heart",
+                     "type":"heart"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":302,
+                 "y":68
+                }, 
+                {
+                 "gid":242,
+                 "height":0,
+                 "id":43,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"heart",
+                     "type":"heart"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":3208,
+                 "y":188
+                }, 
+                {
+                 "gid":242,
+                 "height":0,
+                 "id":44,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"heart",
+                     "type":"heart"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1981,
+                 "y":196
+                }, 
+                {
+                 "gid":242,
+                 "height":0,
+                 "id":45,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"heart",
+                     "type":"heart"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1720,
+                 "y":202
+                }, 
+                {
+                 "gid":242,
+                 "height":0,
+                 "id":46,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"heart",
+                     "type":"heart"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":597,
+                 "y":193
+                }, 
+                {
+                 "gid":242,
+                 "height":0,
+                 "id":47,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"heart",
+                     "type":"heart"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":764,
+                 "y":174
+                }, 
+                {
+                 "gid":242,
+                 "height":0,
+                 "id":48,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"heart",
+                     "type":"heart"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":757,
+                 "y":259
+                }, 
+                {
+                 "gid":242,
+                 "height":0,
+                 "id":49,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"heart",
+                     "type":"heart"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":664,
+                 "y":87
+                }, 
+                {
+                 "gid":242,
+                 "height":0,
+                 "id":50,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"heart",
+                     "type":"heart"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":530,
+                 "y":59
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -204,7 +357,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":27,
+ "nextobjectid":51,
  "orientation":"orthogonal",
  "properties":
     {
@@ -257,6 +410,21 @@
          "spacing":0,
          "tileheight":47,
          "tilewidth":56
+        }, 
+        {
+         "firstgid":242,
+         "image":"..\/images\/heart.png",
+         "imageheight":25,
+         "imagewidth":30,
+         "margin":0,
+         "name":"heart",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":25,
+         "tilewidth":30
         }],
  "tilewidth":64,
  "version":1,
