@@ -4,10 +4,13 @@ var gravity = 1000;
 var outOfBoundsHeight = 400;
 var startPosX = 100;
 var startPosY = 300;
-var label = null;
+var scoreLbl = null;
 var score = 0;
 //health starting at 1 just now for testing purposes (making sure health collection works)
 var health = 6;
+var water = 0;
+var waterLbl = null;
+
 
 SideScroller.Game = function () {};
 
@@ -73,17 +76,27 @@ SideScroller.Game.prototype = {
         //sounds
         this.poopSound = this.game.add.audio('poop');
         this.heartSound = this.game.add.audio('heart');
+        this.waterSound = this.game.add.audio('water');
         
         //display score at top right
         var canvasWidth = this.game.canvas.width;
         var canvasHeight = this.game.canvas.height;
+        
+        //score label
         var style = { font: "30px Arial", fill: "#ff0044", align: "center" };
-        this.label = this.game.add.text(canvasWidth*0.80, canvasHeight*0.05, "text", style);
-        this.label.text = "Score: " + score;
-        this.label.fixedToCamera = true;
+        scoreLbl = this.game.add.text(canvasWidth*0.80, canvasHeight*0.05, "text", style);
+        scoreLbl.anchor.set(0.5, 0.5);
+        scoreLbl.text = "Score: " + score;
+        scoreLbl.fixedToCamera = true;
+        
+        //display pee power count at top middle
+        var style2 = { font: "30px Arial", fill: "#bb00ff", align: "center" };
+        waterLbl = this.game.add.text(canvasWidth*0.50, canvasHeight*0.05, "text", style2);
+        waterLbl.anchor.set(0.5, 0.5);
+        waterLbl.text = "Pee power: " + water;
+        waterLbl.fixedToCamera = true;
         
         //display health at top left
-        
         this.health1 = this.game.add.sprite(canvasWidth*0.05, canvasHeight*0.10, 'healthFull');
         this.health2 = this.game.add.sprite(canvasWidth*0.10, canvasHeight*0.10, 'healthFull');
         this.health3 = this.game.add.sprite(canvasWidth*0.15, canvasHeight*0.10, 'healthFull');
@@ -132,7 +145,7 @@ SideScroller.Game.prototype = {
 
             if (this.cursors.right.isDown) {
                 this.playerForward();
-            } 
+            }
             else if (this.cursors.left.isDown) {
                 this.playerBack();
                 } 
@@ -165,27 +178,35 @@ SideScroller.Game.prototype = {
         //if hits on the left side, die. This was changed from the right side for testing purposes.
         //This will need to be changed at some point as collision (apart from with an enemy) shouldn't cause death.
         if (player.body.blocked.left) {
-
-            console.log(player.body.blocked);
-            this.reduceHealth();
+            //console.log(player.body.blocked);
+            this.decreaseItem("heart");
         }
     },
     
     collect: function (player, item) {
-        if(item.sprite == "poop")
+        
+        itemType = item.sprite;
+        
+        if(itemType == "poop")
         {
             item.destroy();
             this.poopSound.play();
-            this.increaseScore();
+            this.increaseItem(itemType);
         }
-        else if (item.sprite == "heart")
+        else if (itemType == "heart")
         {
             if (health<6)
             {
                 item.destroy();
-                this.increaseHealth();
+                this.increaseItem(itemType);
                 this.heartSound.play();
             }   
+        }
+        else if (itemType == "water")
+        {
+            item.destroy();
+            this.increaseItem(itemType);
+            this.waterSound.play();
         }
        
     },
@@ -238,25 +259,34 @@ SideScroller.Game.prototype = {
 
     },
     
-    //create collectable poops
+    //create collectable items
     createItems: function () {
         this.items = this.game.add.group();
         this.items.enableBody = true;
         
-        var result = this.findObjectsByType('poo', this.map, 'itemLayer');
+        var resultPoop = this.findObjectsByType('poo', this.map, 'itemLayer');
         
-        result.forEach(function (element) {
+        resultPoop.forEach(function (element) {
             this.createFromTiledObject(element, this.items);
         }, this);
         
-        var result2 = this.findObjectsByType('heart', this.map, 'itemLayer');
+        var resultHealth = this.findObjectsByType('heart', this.map, 'itemLayer');
         
-        result2.forEach(function (element) {
+        resultHealth.forEach(function (element) {
+            this.createFromTiledObject(element, this.items);
+        }, this);
+        
+        var resultWater = this.findObjectsByType('water', this.map, 'itemLayer');
+        
+        resultWater.forEach(function (element) {
             this.createFromTiledObject(element, this.items);
         }, this);
     },
     
     gameOver: function () {
+        score = 0;
+        health = 6;
+        water = 0;
         this.game.state.start('Game');
     },
 
@@ -303,70 +333,72 @@ SideScroller.Game.prototype = {
         
     },
     
-    increaseScore: function () {
-        score += 100;
-        this.label.text = "Score: " + score;
-    },
-    
-    increaseHealth: function () {
-        health += 1;
-        this.updateHealthGraphic(health);
-    },
-    
-    reduceHealth: function () {
-        health -= 1;
-        this.updateHealthGraphic(health);
-    },
-    
     //this really is an awful way to do this but it works. Could do with refactoring.
     updateHealthGraphic: function (health){
     
         if (health==6) {
-            console.log("got here: health = 6");
             this.health1.loadT
             this.health1.loadTexture('healthFull');
             this.health2.loadTexture('healthFull');
             this.health3.loadTexture('healthFull');
         }
         else if (health==5){
-            console.log("got here: health = 5");
-            console.log(this);
-            console.log(this.health1.loadTexture)
             this.health1.loadTexture("healthFull");
             this.health2.loadTexture("healthFull");
             this.health3.loadTexture("healthHalf");
         }
         else if (health==4){
-            console.log("got here: health = 4");
             this.health1.loadTexture('healthFull');
             this.health2.loadTexture('healthFull');
             this.health3.loadTexture('healthEmpty');
         }
         else if (health==3){
-            console.log("got here: health = 3");
             this.health1.loadTexture('healthFull');
             this.health2.loadTexture('healthHalf');
             this.health3.loadTexture('healthEmpty');
         }
         else if (health==2){
-            console.log("got here: health = 2");
             this.health1.loadTexture('healthFull');
             this.health2.loadTexture('healthEmpty');
             this.health3.loadTexture('healthEmpty');
         }
         else if (health==1){
-            console.log("got here: health = 1");
             this.health1.loadTexture('healthHalf');
             this.health2.loadTexture('healthEmpty');
             this.health3.loadTexture('healthEmpty');
         }
         else if (health==0){
-            console.log("got here: health = 0");
             this.health1.loadTexture('healthEmpty');
             this.health2.loadTexture('healthEmpty');
             this.health3.loadTexture('healthEmpty');
             this.playerDead();
         }        
+    },
+    
+    increaseItem: function (itemType) {
+        if (itemType=="water") {
+            water+=5;
+            waterLbl.text = "Pee power: " + water;
+        }
+        else if (itemType=="heart") {
+            health+=1;
+            this.updateHealthGraphic(health);
+        }
+        else if (itemType=="poop") {
+            score+=100;
+            scoreLbl.text = "Score: " + score;
+        }
+    },
+    
+    decreaseItem: function (itemType) {
+        if (itemType=="water") {
+            water-=1;
+            waterLbl.text = "Pee power: " + water;
+        }
+        else if (itemType=="heart") {
+            health-=1;
+            this.updateHealthGraphic(health);
+        }
     },
     
     render: function () {

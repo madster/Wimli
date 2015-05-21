@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="78" height="7" tilewidth="64" tileheight="64" nextobjectid="51">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="78" height="7" tilewidth="64" tileheight="64" nextobjectid="59">
  <tileset firstgid="1" name="spritesheet_ground" tilewidth="128" tileheight="128">
   <image source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/Spritesheets/spritesheet_ground.png" width="1024" height="2048"/>
  </tileset>
@@ -11,6 +11,9 @@
  </tileset>
  <tileset firstgid="242" name="heart" tilewidth="30" tileheight="25">
   <image source="../images/heart.png" width="30" height="25"/>
+ </tileset>
+ <tileset firstgid="243" name="water" tilewidth="40" tileheight="57">
+  <image source="../images/water.png" width="40" height="57"/>
  </tileset>
  <layer name="backgroundLayer" width="78" height="7">
   <data encoding="csv">
@@ -147,6 +150,54 @@
    <properties>
     <property name="sprite" value="heart"/>
     <property name="type" value="heart"/>
+   </properties>
+  </object>
+  <object id="51" gid="243" x="1280" y="253">
+   <properties>
+    <property name="sprite" value="water"/>
+    <property name="type" value="water"/>
+   </properties>
+  </object>
+  <object id="52" gid="243" x="2190" y="195">
+   <properties>
+    <property name="sprite" value="water"/>
+    <property name="type" value="water"/>
+   </properties>
+  </object>
+  <object id="53" gid="243" x="2317" y="153">
+   <properties>
+    <property name="sprite" value="water"/>
+    <property name="type" value="water"/>
+   </properties>
+  </object>
+  <object id="54" gid="243" x="2046" y="270">
+   <properties>
+    <property name="sprite" value="water"/>
+    <property name="type" value="water"/>
+   </properties>
+  </object>
+  <object id="55" gid="243" x="1966" y="307">
+   <properties>
+    <property name="sprite" value="water"/>
+    <property name="type" value="water"/>
+   </properties>
+  </object>
+  <object id="56" gid="243" x="1744" y="132">
+   <properties>
+    <property name="sprite" value="water"/>
+    <property name="type" value="water"/>
+   </properties>
+  </object>
+  <object id="57" gid="243" x="1918" y="148">
+   <properties>
+    <property name="sprite" value="water"/>
+    <property name="type" value="water"/>
+   </properties>
+  </object>
+  <object id="58" gid="243" x="1856" y="217">
+   <properties>
+    <property name="sprite" value="water"/>
+    <property name="type" value="water"/>
    </properties>
   </object>
  </objectgroup>

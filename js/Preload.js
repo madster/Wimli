@@ -13,22 +13,29 @@ SideScroller.Preload.prototype = {
     this.load.setPreloadSprite(this.preloadBar);
 
     //load game assets
+    //level
     this.load.tilemap('level1', 'assets/tilemaps/level1.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.image('blockedTiles', 'assets/images/spritesheet_ground.png');
     this.load.image('background', 'assets/images/uncolored_plain2.png');
     this.load.image('player', 'assets/images/player.png');
+    //player
     this.load.image('playerDuck', 'assets/images/player_duck.png');
     this.load.image('playerJump', 'assets/images/player_jump.png');  
     this.load.image('playerDead', 'assets/images/player_dead.png');  
     this.load.image('playerBack', 'assets/images/player_back.png');
+    //items
     this.load.image('poop', 'assets/images/poop.png');
     this.load.image('heart', 'assets/images/heart.png'); 
-    this.load.image('healthFull', 'assets/images/health.png');    
+    this.load.image('healthFull', 'assets/images/healthFull.png');    
     this.load.image('healthHalf', 'assets/images/healthHalf.png');  
     this.load.image('healthEmpty', 'assets/images/healthEmpty.png');  
+    this.load.image('water', 'assets/images/water.png');
+    //enemies
     this.load.image('enemy', 'assets/images/enemyBee.png');
+    //audio
     this.load.audio('poop', ['assets/audio/bark.ogg', 'assets/audio/bark.mp3']);
     this.load.audio('heart', 'assets/audio/health.ogg');
+    this.load.audio('water', 'assets/audio/water.ogg');  
     
   },
   create: function() {

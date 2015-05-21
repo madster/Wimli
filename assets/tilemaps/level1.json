@@ -349,6 +349,142 @@
                  "width":0,
                  "x":530,
                  "y":59
+                }, 
+                {
+                 "gid":243,
+                 "height":0,
+                 "id":51,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"water",
+                     "type":"water"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1280,
+                 "y":253
+                }, 
+                {
+                 "gid":243,
+                 "height":0,
+                 "id":52,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"water",
+                     "type":"water"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2190,
+                 "y":195
+                }, 
+                {
+                 "gid":243,
+                 "height":0,
+                 "id":53,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"water",
+                     "type":"water"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2317,
+                 "y":153
+                }, 
+                {
+                 "gid":243,
+                 "height":0,
+                 "id":54,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"water",
+                     "type":"water"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2046,
+                 "y":270
+                }, 
+                {
+                 "gid":243,
+                 "height":0,
+                 "id":55,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"water",
+                     "type":"water"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1966,
+                 "y":307
+                }, 
+                {
+                 "gid":243,
+                 "height":0,
+                 "id":56,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"water",
+                     "type":"water"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1744,
+                 "y":132
+                }, 
+                {
+                 "gid":243,
+                 "height":0,
+                 "id":57,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"water",
+                     "type":"water"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1918,
+                 "y":148
+                }, 
+                {
+                 "gid":243,
+                 "height":0,
+                 "id":58,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"water",
+                     "type":"water"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1856,
+                 "y":217
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -357,7 +493,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":51,
+ "nextobjectid":59,
  "orientation":"orthogonal",
  "properties":
     {
@@ -425,6 +561,21 @@
          "spacing":0,
          "tileheight":25,
          "tilewidth":30
+        }, 
+        {
+         "firstgid":243,
+         "image":"..\/images\/water.png",
+         "imageheight":57,
+         "imagewidth":40,
+         "margin":0,
+         "name":"water",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":57,
+         "tilewidth":40
         }],
  "tilewidth":64,
  "version":1,
