@@ -81,8 +81,6 @@ SideScroller.Game.prototype = {
         //display score at top right
         var canvasWidth = this.game.canvas.width;
         var canvasHeight = this.game.canvas.height;
-        
-        //score label
         var style = { font: "30px Arial", fill: "#ff0044", align: "center" };
         scoreLbl = this.game.add.text(canvasWidth*0.80, canvasHeight*0.05, "text", style);
         scoreLbl.anchor.set(0.5, 0.5);
@@ -148,12 +146,13 @@ SideScroller.Game.prototype = {
             }
             else if (this.cursors.left.isDown) {
                 this.playerBack();
-                } 
+            } 
             else if (this.cursors.up.isDown) {
                     this.playerJump();
-                } else if (this.cursors.down.isDown) {
+            } 
+            else if (this.cursors.down.isDown) {
                     this.playerDuck();
-                }
+            }
 
             if (!this.cursors.down.isDown && this.player.isDucked && !this.pressingDown) {
                 //change image and update the body size for the physics engine
@@ -164,7 +163,7 @@ SideScroller.Game.prototype = {
 
             //restart the game if reaching the edge
             if (this.player.x >= this.game.world.width) {
-                this.game.state.start('Game');
+                this.gameOver();
             }
             
             //game over if player falls off platform
@@ -217,17 +216,13 @@ SideScroller.Game.prototype = {
             var that = this;
 
             GameController.init({
-                left: {
-                    type: 'joystick',
-                    joystick: {
-                    radius: 20,
-                    }
-                },
+               
+                left: 'none',
                 right: {
+                    position: {right: 130, bottom: 70},
                     type: 'buttons',
                     buttons: [
-                
-                false,
+                        
                         {
                             label: 'J',
                             touchStart: function () {
@@ -235,9 +230,12 @@ SideScroller.Game.prototype = {
                                     return;
                                 }
                                 that.playerJump();
+                            },
+                            touchEnd: function () {
+                                that.pressingDown = false;
                             }
-                },
-                false,
+                        },
+                        false, 
                         {
                             label: 'D',
                             touchStart: function () {
@@ -250,7 +248,8 @@ SideScroller.Game.prototype = {
                             touchEnd: function () {
                                 that.pressingDown = false;
                             }
-                        }
+                        },
+                        false
                     ]
                 },
             });
@@ -264,21 +263,15 @@ SideScroller.Game.prototype = {
         this.items = this.game.add.group();
         this.items.enableBody = true;
         
-        var resultPoop = this.findObjectsByType('poo', this.map, 'itemLayer');
+        this.addItemLayer('poo');
+        this.addItemLayer('heart');
+        this.addItemLayer('water');
+    },
+    
+    addItemLayer: function (itemName) {
+    var result = this.findObjectsByType(itemName, this.map, 'itemLayer');
         
-        resultPoop.forEach(function (element) {
-            this.createFromTiledObject(element, this.items);
-        }, this);
-        
-        var resultHealth = this.findObjectsByType('heart', this.map, 'itemLayer');
-        
-        resultHealth.forEach(function (element) {
-            this.createFromTiledObject(element, this.items);
-        }, this);
-        
-        var resultWater = this.findObjectsByType('water', this.map, 'itemLayer');
-        
-        resultWater.forEach(function (element) {
+        result.forEach(function (element) {
             this.createFromTiledObject(element, this.items);
         }, this);
     },
@@ -337,7 +330,6 @@ SideScroller.Game.prototype = {
     updateHealthGraphic: function (health){
     
         if (health==6) {
-            this.health1.loadT
             this.health1.loadTexture('healthFull');
             this.health2.loadTexture('healthFull');
             this.health3.loadTexture('healthFull');
