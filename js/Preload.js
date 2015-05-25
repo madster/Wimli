@@ -23,6 +23,7 @@ SideScroller.Preload.prototype = {
     this.load.image('playerJump', 'assets/images/player_jump.png');  
     this.load.image('playerDead', 'assets/images/player_dead.png');  
     this.load.image('playerBack', 'assets/images/player_back.png');
+    this.load.image('peePower', 'assets/images/peePower.png');
     //items
     this.load.image('poop', 'assets/images/poop.png');
     this.load.image('heart', 'assets/images/heart.png'); 
@@ -31,7 +32,12 @@ SideScroller.Preload.prototype = {
     this.load.image('healthEmpty', 'assets/images/healthEmpty.png');  
     this.load.image('water', 'assets/images/water.png');
     //enemies
-    this.load.image('enemy', 'assets/images/enemyBee.png');
+    this.load.image('enemyBee', 'assets/images/enemyBee.png');
+    this.load.image('bullet', 'assets/images/bullet.png');
+    this.load.image('blank', 'assets/images/blank.png');
+    //Params (key, location, widthPerSprite, heightPerSprite, noOfSprites)
+    this.load.spritesheet('kaboom', 'assets/images/explosion.png', 64, 64, 23);
+    this.load.spritesheet('bunny', 'assets/images/bunny.png', 64, 68, 43);
     //audio
     this.load.audio('poop', ['assets/audio/bark.ogg', 'assets/audio/bark.mp3']);
     this.load.audio('heart', 'assets/audio/health.ogg');
