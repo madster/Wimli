@@ -1,8 +1,8 @@
 var SideScroller = SideScroller || {};
 
-//             //
-// ENEMY CLASS //
-//             //
+//                 //
+// ENEMY PROTOTYPE //
+//                 //
 Enemy = function (index, game, player, enemyBullets) {
 
     this.game = game;
@@ -68,19 +68,16 @@ Enemy.prototype.update = function() {
 
 };
 
-//            //
-// GAME STATE //
-//            //
 var gravity = 1000;
-var outOfBoundsHeight = 400;
+var outOfBoundsHeight = 340;
 var startPosX = 100;
 var startPosY = 300;
 var scoreLbl = null;
 var score = 0;
 var health = 6;
-var water = 0;
-var waterLbl = null;
-
+var pauseBtn;
+var tween = null;
+var popup;
 var shooter;
 
 var canvasWidth;
@@ -94,24 +91,43 @@ var fireRate = 100;
 var explosions;
 var cursors;
 
-SideScroller.Game = function () {};
+var level;
+var sfxOff;
+
+//                 //
+// GAME PROTOTYPE //
+//                 //
+
+SideScroller.Game = function (level) {};
 
 SideScroller.Game.prototype = {
 
+    init: function(level) {
+        this.level = level;
+    },
+    
     preload: function () {
         //if true then advanced profiling, including the fps rate, fps min/max and msMin/msMax are updated
         this.game.time.advancedTiming = true;
     },
     
     create: function () {
-        this.map = this.game.add.tilemap('level1');
+        console.log(this.level);
+        
+        if (this.level == 1) {
+            this.map = this.game.add.tilemap('level1');
+        }
+        if (this.level == 2) {
+            console.log("LEVEL 2");
+            this.map = this.game.add.tilemap('level2');
+        }
 
         //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
-        this.map.addTilesetImage('spritesheet_ground', 'blockedTiles');
-        this.map.addTilesetImage('uncolored_plain2', 'background');
+        this.map.addTilesetImage('tiles_spritesheet', 'blockedTiles');
+        this.map.addTilesetImage('blue_land', 'background');
         
         //create layers
-        this.backgroundlayer = this.map.createLayer('backgroundLayer');
+        this.backgroundLayer = this.map.createLayer('backgroundLayer');
         this.blockedLayer = this.map.createLayer('blockedLayer');
 
         //collision with anything in blockedLayer. 
@@ -119,18 +135,29 @@ SideScroller.Game.prototype = {
         this.map.setCollisionBetween(0, 5000, true, 'blockedLayer');
 
         //resizes the game world to match the layer dimensions
-        this.backgroundlayer.resizeWorld();
+        this.backgroundLayer.resizeWorld();
         
         //create collectable items
         this.createItems();
         
         //create player
         //params = (game, startPositionX,startPositionY, key, frame)
-        this.player = this.game.add.sprite(startPosX, startPosY, 'player');
+        //this.player = this.game.add.sprite(startPosX, startPosY, 'player');
+        this.player = this.game.add.sprite(startPosX, startPosY, 'playerspritesheet', 11);
+        //enable physics on the player
+        this.game.physics.arcade.enable(this.player);
+        this.player.animations.add('walk', [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 30, false);
+        this.player.animations.add('walkBack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 30, false);
+        this.player.anchor.setTo(0.5, 0.5);
+
+        //the camera will follow the player in the world
+        this.game.camera.follow(this.player);
         
         //get canvas width and height for later use
         canvasWidth = this.game.canvas.width;
         canvasHeight = this.game.canvas.height;
+        console.log(canvasWidth);
+        console.log(canvasHeight);
         
         //create enemy
         var x = this.game.rnd.between(80, this.game.world.width);
@@ -156,7 +183,7 @@ SideScroller.Game.prototype = {
         playerBullets = this.game.add.group();
         playerBullets.enableBody = true;
         playerBullets.physicsBodyType = Phaser.Physics.ARCADE;
-        playerBullets.createMultiple(5, 'peePower');
+        playerBullets.createMultiple(100, 'peePower');
 
         playerBullets.setAll('anchor.x', 0.5);
         playerBullets.setAll('anchor.y', 0.5);
@@ -166,16 +193,15 @@ SideScroller.Game.prototype = {
         
         //create enemies
         enemies = [];
-        enemiesTotal = 20; 
+        enemiesTotal = 5; 
         for (var i = 0; i < enemiesTotal; i++) {
             enemies.push(new Enemy(i, this.game, this.player, enemyBullets));
         }
         
-        //enable physics on the player
-        this.game.physics.arcade.enable(this.player);
+        
 
         //bring player shooting point to the top (not totally necessary)
-        this.shooter.bringToTop();
+        this.shooter.sendToBack();
         
         explosions = this.game.add.group();
         for (var i = 0; i < 10; i++)
@@ -207,49 +233,69 @@ SideScroller.Game.prototype = {
             width: playerJumpImg.width,
             height: playerJumpImg.height
         };
-        
-        this.player.anchor.setTo(0.5, 0.5);
-
-        //the camera will follow the player in the world
-        this.game.camera.follow(this.player);
 
         //move player with cursor keys
-        cursors = this.game.input.keyboard.createCursorKeys();
+        this.cursors = this.game.input.keyboard.createCursorKeys();
+
+        this.wasd = {
+            up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
+            down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
+            left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
+            right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
+        };
         
         //init game controller
-        this.initGameController();
+        //this.initGameController();
 
         //sounds
-        this.poopSound = this.game.add.audio('poop');
+        this.game.sound.mute = false;
+        this.level1Music = this.game.add.audio('level1Music', 0.8, true);
+        this.level1Music.stop();
+        this.level1Music.play();
+        this.poopSound = this.game.add.audio('poop', 0.8);
         this.heartSound = this.game.add.audio('heart');
-        this.waterSound = this.game.add.audio('water');
+        //this.waterSound = this.game.add.audio('water');
+        
+        this.score = this.game.add.sprite(canvasWidth * 0.86, canvasHeight * 0.08, 'score');
+        this.score.anchor.setTo(0.5, 0.5);
+        this.score.fixedToCamera = true;
         
         //display score at top right
         var style = { font: "30px Arial", fill: "#ff0044", align: "center" };
-        scoreLbl = this.game.add.text(canvasWidth * 0.80, canvasHeight * 0.05, "text", style);
+        scoreLbl = this.game.add.text(canvasWidth * 0.94, canvasHeight * 0.08, "text", style);
         scoreLbl.anchor.set(0.5, 0.5);
-        scoreLbl.text = "Score: " + score;
+        scoreLbl.text = score;
         scoreLbl.fixedToCamera = true;
         
-        //display pee power count at top middle
-        var style2 = { font: "30px Arial", fill: "#bb00ff", align: "center" };
-        waterLbl = this.game.add.text(canvasWidth * 0.50, canvasHeight * 0.05, "text", style2);
-        waterLbl.anchor.set(0.5, 0.5);
-        waterLbl.text = "Pee power: " + water;
-        waterLbl.fixedToCamera = true;
-        
         //display health at top left (starts at full health graphic)
-        this.health1 = this.game.add.sprite(canvasWidth * 0.05, canvasHeight * 0.10, 'healthFull');
-        this.health2 = this.game.add.sprite(canvasWidth * 0.10, canvasHeight * 0.10, 'healthFull');
-        this.health3 = this.game.add.sprite(canvasWidth * 0.15, canvasHeight * 0.10, 'healthFull');
+        health1 = this.game.add.sprite(canvasWidth * 0.05, canvasHeight * 0.08, 'healthFull');
+        health2 = this.game.add.sprite(canvasWidth * 0.10, canvasHeight * 0.08, 'healthFull');
+        health3 = this.game.add.sprite(canvasWidth * 0.15, canvasHeight * 0.08, 'healthFull');
         
-        this.health1.anchor.setTo(0.5, 1);
-        this.health2.anchor.setTo(0.5, 1);
-        this.health3.anchor.setTo(0.5, 1);
+        health1.anchor.setTo(0.5, 0.5);
+        health2.anchor.setTo(0.5, 0.5);
+        health3.anchor.setTo(0.5, 0.5);
         
-        this.health1.fixedToCamera = true;
-        this.health2.fixedToCamera = true;
-        this.health3.fixedToCamera = true;        
+        health1.fixedToCamera = true;
+        health2.fixedToCamera = true;
+        health3.fixedToCamera = true; 
+        
+        pauseBtn = this.game.add.button(canvasWidth * 0.5, canvasHeight * 0.08, 'pauseBtn', this.managePause, this, 2, 1, 0);
+        pauseBtn.input.useHandCursor = true;
+        pauseBtn.fixedToCamera = true;
+        
+        sfxBtn = this.game.add.button(canvasWidth * 0.5, canvasHeight * 0.08, 'sfxBtn', this.sfxOnOrOff, this, 2, 1, 0);
+        sfxBtn.input.useHandCursor = true;
+        sfxBtn.fixedToCamera = true;
+        
+        //  You can drag the pop-up window around
+        /*popup = this.game.add.sprite(canvasWidth * 0.5, canvasHeight * 0.5, 'pauseBackground');
+        popup.alpha = 0.8;
+        popup.anchor.set(0.5);
+        popup.inputEnabled = true;
+        popup.input.enableDrag();
+        
+        popup.scale.set(0);*/
     },
 
     //find objects in a Tiled layer that contain a property called "type" equal to a certain value
@@ -287,12 +333,16 @@ SideScroller.Game.prototype = {
        //overlap between enemy bullets and player
        this.game.physics.arcade.overlap(this.player, enemyBullets, this.bulletHitPlayer, null, this)
 
+       //overlap between player bullets and enemy bullets
+       //if player and enemy bullets hit each other, the enemy bullet is destroyed
+       this.game.physics.arcade.overlap(enemyBullets, playerBullets, this.bulletHitBullet, null, this)
+       
         //collision for all enemies
         for (var i = 0; i < enemies.length; i++) {
             if (enemies[i].alive) {                
 
                 //collision between player body and enemy body
-                this.game.physics.arcade.collide(this.player, enemies[i].enemy, this.bulletHitPlayer, null, this);
+                this.game.physics.arcade.collide(this.player, enemies[i].enemy, this.enemyHitPlayer, null, this);
 
                 //overlap between player bullets and enemies
                 this.game.physics.arcade.overlap(playerBullets, enemies[i].enemy, this.bulletHitEnemy, null, this);
@@ -316,28 +366,26 @@ SideScroller.Game.prototype = {
         if (this.player.alive) {
             this.player.body.velocity.x = 0;
     
-            //doesn't detect mouse click - currently investigating
             if (this.game.input.activePointer.isDown) {
-                console.log("pointer is down");
                 this.fire();
             }
-            else if (cursors.right.isDown) {
+            if (this.cursors.right.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.D)) {
                 this.playerForward();
             }   
-            else if (cursors.left.isDown) {
+            if (this.cursors.left.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.A)) {
                 this.playerBack();
             }
-            else if (cursors.up.isDown) {
+            if (this.cursors.up.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
                 this.playerJump();
             } 
-            else if (cursors.down.isDown) {
-                this.fire();
+            if (this.cursors.down.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.S)) {
                 this.playerDuck();
             }
 
-            if (!cursors.down.isDown && this.player.isDucked && !this.pressingDown) {
+            if (!this.cursors.down.isDown && this.player.isDucked && !this.pressingDown) {
                 //change image and update the body size for the physics engine
-                this.player.loadTexture('player');
+                this.player.animations.play('walk');
+                //this.player.loadTexture('playerDuck');
                 this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
                 this.player.isDucked = false;
             }
@@ -374,11 +422,20 @@ SideScroller.Game.prototype = {
         }
     },
     
+    bulletHitBullet: function (bullet) {
+        bullet.kill();    
+        var explosionAnimation = explosions.getFirstExists(false);
+            explosionAnimation.reset(bullet.x, bullet.y);
+            explosionAnimation.play('kaboom', 30, false, true);
+        
+    },
+    
+    enemyHitPlayer: function () {
+       this.decreaseItem("heart");
+    },
+    
     fire: function () {        
-        console.log("fire was called");
-        console.log(this.game.input.activePointer.x);
-        console.log(this.game.input.activePointer.y);
-        if (this.game.time.now > nextFire && water!=0 && playerBullets.countDead() > 0){
+        if (this.game.time.now > nextFire && playerBullets.countDead() > 0){
             this.decreaseItem("water");
             nextFire = this.game.time.now + fireRate;
             
@@ -386,12 +443,12 @@ SideScroller.Game.prototype = {
             bullet.reset(this.shooter.x, this.shooter.y);
 
             bullet.rotation = this.game.physics.arcade.moveToPointer(bullet, 1000, this.game.input.activePointer, 1000);
-            console.log(this.game.input.activePointer);
         }
 
     },
     
     checkPlayerHit: function (player) {
+        
         //Collision with an enemy (except if player jumps on enemy head) reduces health
         //if (player.body.blocked.down) {
             console.log("Right: " + player.body.blocked.right);
@@ -428,15 +485,18 @@ SideScroller.Game.prototype = {
                 this.heartSound.play();
             }   
         }
-        else if (itemType == "water") {
+        /*else if (itemType == "water") {
             item.destroy();
-            this.increaseItem(itemType);
             this.waterSound.play();
+        }*/
+        else if (itemType == "levelEnd") {
+            //sound
+            this.game.time.events.add(700, this.nextLevel, this);
         }
        
     },
     
-    initGameController: function () {
+    /*initGameController: function () {
 
         if (!GameController.hasInitiated) {
             var that = this;
@@ -482,7 +542,7 @@ SideScroller.Game.prototype = {
             GameController.hasInitiated = true;
         }
 
-    },
+    },*/
     
     //create collectable items
     createItems: function () {
@@ -491,7 +551,9 @@ SideScroller.Game.prototype = {
         
         this.addItemLayer('poo');
         this.addItemLayer('heart');
-        this.addItemLayer('water');
+        //this.addItemLayer('water');
+        this.addItemLayer('levelEnd');
+        this.addItemLayer('levelStart');
     },
     
     addItemLayer: function (itemName) {
@@ -505,32 +567,35 @@ SideScroller.Game.prototype = {
     gameOver: function () {
         score = 0;
         health = 6;
-        water = 0;
-        this.game.state.start('Game');
+        this.level1Music.stop();
+        this.game.state.start('GameOver');
     },
 
     playerForward: function () {
-        this.player.loadTexture('player');
-        this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
         this.player.body.velocity.x = 700;
+        this.player.animations.play('walk');
+        //this.player.loadTexture('player');
+        this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
+        
         this.player.isMoving = true;
         //console.log("Forward height:" + this.player.standDimensions.height);
         //console.log("Forward width:" + this.player.standDimensions.width);  
     },
     
     playerBack: function () {
-        this.player.loadTexture('playerBack');
+        this.player.animations.play('walkBack');
         this.player.body.velocity.x -= 700;
         this.player.isMoving = true;
     },
     
     playerJump: function () {
         if (this.player.body.blocked.down) {
+            this.player.animations.play('walk');
             this.player.body.velocity.y -= 700;
-            this.player.loadTexture('playerJump');
             //console.log("Jump height:" + this.player.jumpDimensions.height);
             //console.log("Jump width:" + this.player.jumpDimensions.width);    
         }
+        this.player.isJumping = true;
     },
     
     playerDuck: function () {
@@ -539,7 +604,6 @@ SideScroller.Game.prototype = {
         //this.player.body.setSize(this.player.duckedDimensions.width, this.player.duckedDimensions.height);
         //console.log("Duck height:" + this.player.duckedDimensions.height);
         //console.log("Duck width:" + this.player.duckedDimensions.width);  
-
         //we use this to keep track whether it's ducked or not
         this.player.isDucked = true;
     },
@@ -555,7 +619,7 @@ SideScroller.Game.prototype = {
         this.player.loadTexture('playerDead');
 
         //go to gameover after a few miliseconds
-        this.game.time.events.add(1000, this.gameOver, this);
+        this.game.time.events.add(700, this.gameOver, this);
         
     },
     
@@ -563,69 +627,61 @@ SideScroller.Game.prototype = {
     updateHealthGraphic: function (health){
     
         if (health==6) {
-            this.health1.loadTexture('healthFull');
-            this.health2.loadTexture('healthFull');
-            this.health3.loadTexture('healthFull');
+            health1.loadTexture('healthFull');
+            health2.loadTexture('healthFull');
+            health3.loadTexture('healthFull');
         }
         else if (health==5){
-            this.health1.loadTexture("healthFull");
-            this.health2.loadTexture("healthFull");
-            this.health3.loadTexture("healthHalf");
+            health1.loadTexture("healthFull");
+            health2.loadTexture("healthFull");
+            health3.loadTexture("healthHalf");
         }
         else if (health==4){
-            this.health1.loadTexture('healthFull');
-            this.health2.loadTexture('healthFull');
-            this.health3.loadTexture('healthEmpty');
+            health1.loadTexture('healthFull');
+            health2.loadTexture('healthFull');
+            health3.loadTexture('healthEmpty');
         }
         else if (health==3){
-            this.health1.loadTexture('healthFull');
-            this.health2.loadTexture('healthHalf');
-            this.health3.loadTexture('healthEmpty');
+            health1.loadTexture('healthFull');
+            health2.loadTexture('healthHalf');
+            health3.loadTexture('healthEmpty');
         }
         else if (health==2){
-            this.health1.loadTexture('healthFull');
-            this.health2.loadTexture('healthEmpty');
-            this.health3.loadTexture('healthEmpty');
+            health1.loadTexture('healthFull');
+            health2.loadTexture('healthEmpty');
+            health3.loadTexture('healthEmpty');
         }
         else if (health==1){
-            this.health1.loadTexture('healthHalf');
-            this.health2.loadTexture('healthEmpty');
-            this.health3.loadTexture('healthEmpty');
+            health1.loadTexture('healthHalf');
+            health2.loadTexture('healthEmpty');
+            health3.loadTexture('healthEmpty');
         }
         else if (health==0){
-            this.health1.loadTexture('healthEmpty');
-            this.health2.loadTexture('healthEmpty');
-            this.health3.loadTexture('healthEmpty');
+            health1.loadTexture('healthEmpty');
+            health2.loadTexture('healthEmpty');
+            health3.loadTexture('healthEmpty');
             this.playerDead();
         }        
     },
     
     increaseItem: function (itemType) {
-        if (itemType=="water") {
-            water+=5;
-            waterLbl.text = "Pee power: " + water;
-        }
-        else if (itemType=="heart") {
+        if (itemType=="heart") {
             health+=1;
             this.updateHealthGraphic(health);
         }
         else if (itemType=="poop") {
             score+=100;
-            scoreLbl.text = "Score: " + score;
+            scoreLbl.text = score;
         }
         else if (itemType=="score") {
             score+=50;
-            scoreLbl.text = "Score: " + score;
+            scoreLbl.text = score;
         }
         
     },
     
     decreaseItem: function (itemType) {
-        if (itemType=="water") {
-            water-=1;
-            waterLbl.text = "Pee power: " + water;
-        }
-        else if (itemType=="heart") {
+        if (itemType=="heart") {
             health-=1;
             this.updateHealthGraphic(health);
         }
@@ -634,6 +690,65 @@ SideScroller.Game.prototype = {
     enemyMove: function () {
         this.enemy.body.velocity.x = 10;
         this.enemy.isMoving = true;
+    },
+    
+    managePause: function() {
+        this.game.paused = true;
+        //var pausedText = this.add.text(100, 250, "Game paused.\nPress left arrow to continue.", this._fontStyle);
+        //pausedText.fixedToCamera = true;
+        this.input.onDown.add(
+            function() {
+                //pausedText.destroy();
+                this.game.paused = false;
+            }, this);
+        
+        //this.openWindow;
+    },
+    
+    openWindow: function() {
+        if ((tween !== null && tween.isRunning) || popup.scale.x === 1) {
+        return;
+        }
+        //  Create a tween that will pop-open the window, but only if it's not already tweening or open
+        tween = game.add.tween(popup.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+        
+    },
+    
+    closeWindow: function() {
+        if (tween && tween.isRunning || popup.scale.x === 0.1) {
+            return;
+        }
+
+        //  Create a tween that will close the window, but only if it's not already tweening or closed
+        tween = this.game.add.tween(popup.scale).to( { x: 0.1, y: 0.1 }, 500, Phaser.Easing.Elastic.In, true);
+
+        this.game.paused = false;
+    },
+    
+    nextLevel: function() {
+        level = this.level+1;
+        this.game.state.start('LevelFinish', level);
+    },
+    
+    sfxOnOrOff: function() {
+        
+        if(this.game.sound.mute == false) {
+            this.game.sound.mute = true;
+            console.log("was false now true: " + this.sfxOff)
+            console.log("sfxOff = " + sfxOff)
+            console.log("this.game.sound.mute = " + this.game.sound.mute)
+            return;
+        }
+        else if(this.game.sound.mute == true) {
+            this.game.sound.mute = false;
+            console.log("was true now false: " + this.sfxOff)
+            
+            console.log("sfxOff = " + sfxOff)
+            console.log("this.game.sound.mute = " + this.game.sound.mute)
+            return;
+        }
+        //this.poopSound.pause();
+        //this.heartSound.pause();
     },
     
     render: function () {
