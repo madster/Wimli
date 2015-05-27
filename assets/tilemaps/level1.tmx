@@ -1,203 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="78" height="7" tilewidth="64" tileheight="64" nextobjectid="59">
- <tileset firstgid="1" name="spritesheet_ground" tilewidth="128" tileheight="128">
-  <image source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/Spritesheets/spritesheet_ground.png" width="1024" height="2048"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="70" height="6" tilewidth="70" tileheight="70" nextobjectid="35">
+ <tileset firstgid="1" name="blue_land" tilewidth="70" tileheight="70" spacing="2">
+  <image source="../images/blue_land.png" width="1024" height="1024"/>
  </tileset>
- <tileset firstgid="129" name="uncolored_plain2" tilewidth="64" tileheight="64">
-  <image source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Background elements (110 assets)/Samples/uncolored_plain2.png" width="1024" height="448"/>
+ <tileset firstgid="197" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2">
+  <image source="../images/tiles_spritesheet.png" width="790" height="934"/>
  </tileset>
- <tileset firstgid="241" name="poop" tilewidth="56" tileheight="47">
+ <tileset firstgid="340" name="poop" tilewidth="56" tileheight="47">
   <image source="../../../Assets/Doggy_graphics/Vectors/poop.png" width="56" height="47"/>
  </tileset>
- <tileset firstgid="242" name="heart" tilewidth="30" tileheight="25">
+ <tileset firstgid="341" name="heart" tilewidth="30" tileheight="25">
   <image source="../images/heart.png" width="30" height="25"/>
  </tileset>
- <tileset firstgid="243" name="water" tilewidth="40" tileheight="57">
-  <image source="../images/water.png" width="40" height="57"/>
+ <tileset firstgid="342" name="tilesheet" tilewidth="128" tileheight="128">
+  <tile id="0">
+   <image width="128" height="128" source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/PNG/Tiles/bridgeA.png"/>
+  </tile>
+  <tile id="1">
+   <image width="128" height="128" source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/PNG/Tiles/bush.png"/>
+  </tile>
+  <tile id="2">
+   <image width="128" height="128" source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/PNG/Tiles/cactus.png"/>
+  </tile>
+  <tile id="3">
+   <image width="128" height="128" source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/PNG/Tiles/grass.png"/>
+  </tile>
+  <tile id="4">
+   <image width="85" height="64" source="../../../Assets/Doggy_graphics/Tiles/boneHill.png"/>
+  </tile>
+  <tile id="5">
+   <image width="64" height="64" source="../../../Assets/Doggy_graphics/Tiles/littlegrass.png"/>
+  </tile>
+  <tile id="6">
+   <image width="64" height="64" source="../../../Assets/Doggy_graphics/Tiles/littlegrass1.png"/>
+  </tile>
+  <tile id="7">
+   <image width="64" height="64" source="../../../Assets/Doggy_graphics/Tiles/pipegrass.png"/>
+  </tile>
+  <tile id="8">
+   <image width="64" height="64" source="../../../Assets/Doggy_graphics/Tiles/redflower.png"/>
+  </tile>
+  <tile id="9">
+   <image width="64" height="64" source="../../../Assets/Doggy_graphics/Tiles/yellowflower.png"/>
+  </tile>
+  <tile id="10">
+   <image width="35" height="29" source="../images/icons/poop.png"/>
+  </tile>
  </tileset>
- <layer name="backgroundLayer" width="78" height="7">
+ <layer name="backgroundLayer" width="70" height="6">
   <data encoding="csv">
-129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,129,130,131,132,133,134,135,136,137,138,139,140,141,142,
-145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,145,146,147,148,149,150,151,152,153,154,155,156,157,158,
-161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,161,162,163,164,165,166,167,168,169,170,171,172,173,174,
-177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,177,178,179,180,181,182,183,184,185,186,187,188,189,190,
-193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,193,194,195,196,197,198,199,200,201,202,203,204,205,206,
-209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,209,210,211,212,213,214,215,216,217,218,219,220,221,222,
-225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,225,226,227,228,229,230,231,232,233,234,235,236,237,238
+57,58,59,60,61,62,63,64,65,66,67,68,69,70,57,58,59,60,61,62,63,64,65,66,67,68,69,70,57,58,59,60,61,62,63,64,65,66,67,68,69,70,57,58,59,60,61,62,63,64,65,66,67,68,69,70,57,58,59,60,61,62,63,64,65,66,67,68,69,70,
+71,72,73,74,75,76,77,78,79,80,81,82,83,84,71,72,73,74,75,76,77,78,79,80,81,82,83,84,71,72,73,74,75,76,77,78,79,80,81,82,83,84,71,72,73,74,75,76,77,78,79,80,81,82,83,84,71,72,73,74,75,76,77,78,79,80,81,82,83,84,
+85,86,87,88,89,90,91,92,93,94,95,96,97,98,85,86,87,88,89,90,91,92,93,94,95,96,97,98,85,86,87,88,89,90,91,92,93,94,95,96,97,98,85,86,87,88,89,90,91,92,93,94,95,96,97,98,85,86,87,88,89,90,91,92,93,94,95,96,97,98,
+99,100,101,102,103,104,105,106,107,108,109,110,111,112,99,100,101,102,103,104,105,106,107,108,109,110,111,112,99,100,101,102,103,104,105,106,107,108,109,110,111,112,99,100,101,102,103,104,105,106,107,108,109,110,111,112,99,100,101,102,103,104,105,106,107,108,109,110,111,112,
+113,114,115,116,117,118,119,120,121,122,123,124,125,126,113,114,115,116,117,118,119,120,121,122,123,124,125,126,113,114,115,116,117,118,119,120,121,122,123,124,125,126,113,114,115,116,117,118,119,120,121,122,123,124,125,126,113,114,115,116,117,118,119,120,121,122,123,124,125,126,
+127,128,129,130,131,132,133,134,135,136,137,138,139,140,127,128,129,130,131,132,133,134,135,136,137,138,139,140,127,128,129,130,131,132,133,134,135,136,137,138,139,140,127,128,129,130,131,132,133,134,135,136,137,138,139,140,127,128,129,130,131,132,133,134,135,136,137,138,139,140
 </data>
  </layer>
- <layer name="blockedLayer" width="78" height="7">
+ <layer name="blockedLayer" width="70" height="6">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,57,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,57,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,0,9,0,9,0,33,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33,0,0,0,0,0,0,0,0,0,0,0,0,
-9,0,1,0,0,0,17,0,9,0,9,0,9,0,1,0,0,0,17,0,1,0,0,0,17,0,9,0,9,0,9,0,9,0,9,0,1,0,0,0,0,0,17,0,9,0,9,0,9,0,9,0,9,0,9,0,9,0,73,0,2,0,2,0,81,0,9,0,9,0,9,0,9,0,9,0,9,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,303,281,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,260,249,249,238,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,303,281,0,0,0,0,0,0,303,281,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,303,281,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+292,292,292,292,292,292,281,0,0,0,303,292,292,292,292,292,292,292,281,0,0,0,0,0,0,303,292,292,292,292,292,292,292,292,292,281,0,0,0,303,292,292,292,292,292,281,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,303,292,292,292,292,292,292
 </data>
  </layer>
  <objectgroup name="itemLayer">
-  <object id="8" gid="241" x="612" y="321.667">
+  <object id="7" gid="256" x="4827.17" y="349.833">
    <properties>
-    <property name="sprite" value="poop"/>
-    <property name="type" value="poo"/>
+    <property name="sprite" value="levelEnd"/>
+    <property name="type" value="levelEnd"/>
    </properties>
   </object>
-  <object id="18" gid="241" x="1067" y="210">
-   <properties>
-    <property name="sprite" value="poop"/>
-    <property name="type" value="poo"/>
-   </properties>
-  </object>
-  <object id="19" gid="241" x="1448" y="206">
-   <properties>
-    <property name="sprite" value="poop"/>
-    <property name="type" value="poo"/>
-   </properties>
-  </object>
-  <object id="20" gid="241" x="2533" y="72">
-   <properties>
-    <property name="sprite" value="poop"/>
-    <property name="type" value="poo"/>
-   </properties>
-  </object>
-  <object id="21" gid="241" x="3924" y="85">
-   <properties>
-    <property name="sprite" value="poop"/>
-    <property name="type" value="poo"/>
-   </properties>
-  </object>
-  <object id="22" gid="241" x="4351" y="180">
-   <properties>
-    <property name="sprite" value="poop"/>
-    <property name="type" value="poo"/>
-   </properties>
-  </object>
-  <object id="23" gid="241" x="4466" y="110">
-   <properties>
-    <property name="sprite" value="poop"/>
-    <property name="type" value="poo"/>
-   </properties>
-  </object>
-  <object id="24" gid="241" x="4601" y="61">
-   <properties>
-    <property name="sprite" value="poop"/>
-    <property name="type" value="poo"/>
-   </properties>
-  </object>
-  <object id="25" gid="241" x="4720" y="120">
-   <properties>
-    <property name="sprite" value="poop"/>
-    <property name="type" value="poo"/>
-   </properties>
-  </object>
-  <object id="26" gid="241" x="4840" y="184">
-   <properties>
-    <property name="sprite" value="poop"/>
-    <property name="type" value="poo"/>
-   </properties>
-  </object>
-  <object id="39" gid="242" x="302" y="68">
+  <object id="10" gid="341" x="2609.09" y="179.576">
    <properties>
     <property name="sprite" value="heart"/>
     <property name="type" value="heart"/>
    </properties>
   </object>
-  <object id="43" gid="242" x="3208" y="188">
+  <object id="16" gid="341" x="1067" y="277">
    <properties>
     <property name="sprite" value="heart"/>
     <property name="type" value="heart"/>
    </properties>
   </object>
-  <object id="44" gid="242" x="1981" y="196">
+  <object id="23" gid="234" x="-1.66667" y="352.333">
    <properties>
-    <property name="sprite" value="heart"/>
-    <property name="type" value="heart"/>
+    <property name="sprite" value="levelStart"/>
+    <property name="type" value="levelStart"/>
    </properties>
   </object>
-  <object id="45" gid="242" x="1720" y="202">
+  <object id="24" gid="352" x="571" y="202">
    <properties>
-    <property name="sprite" value="heart"/>
-    <property name="type" value="heart"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="46" gid="242" x="597" y="193">
+  <object id="25" gid="352" x="1312" y="288">
    <properties>
-    <property name="sprite" value="heart"/>
-    <property name="type" value="heart"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="47" gid="242" x="764" y="174">
+  <object id="26" gid="352" x="1506" y="140">
    <properties>
-    <property name="sprite" value="heart"/>
-    <property name="type" value="heart"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="48" gid="242" x="757" y="259">
+  <object id="27" gid="352" x="1732" y="285.333">
    <properties>
-    <property name="sprite" value="heart"/>
-    <property name="type" value="heart"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="49" gid="242" x="664" y="87">
+  <object id="28" gid="352" x="4253.33" y="182">
    <properties>
-    <property name="sprite" value="heart"/>
-    <property name="type" value="heart"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="50" gid="242" x="530" y="59">
+  <object id="29" gid="352" x="3412" y="246.667">
    <properties>
-    <property name="sprite" value="heart"/>
-    <property name="type" value="heart"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="51" gid="243" x="1280" y="253">
+  <object id="30" gid="352" x="3689.33" y="180">
    <properties>
-    <property name="sprite" value="water"/>
-    <property name="type" value="water"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="52" gid="243" x="2190" y="195">
+  <object id="31" gid="352" x="3968" y="108">
    <properties>
-    <property name="sprite" value="water"/>
-    <property name="type" value="water"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="53" gid="243" x="2317" y="153">
+  <object id="32" gid="352" x="2174.67" y="349.333">
    <properties>
-    <property name="sprite" value="water"/>
-    <property name="type" value="water"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="54" gid="243" x="2046" y="270">
+  <object id="33" gid="352" x="352" y="297.333">
    <properties>
-    <property name="sprite" value="water"/>
-    <property name="type" value="water"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="55" gid="243" x="1966" y="307">
+  <object id="34" gid="352" x="758.667" y="298.667">
    <properties>
-    <property name="sprite" value="water"/>
-    <property name="type" value="water"/>
-   </properties>
-  </object>
-  <object id="56" gid="243" x="1744" y="132">
-   <properties>
-    <property name="sprite" value="water"/>
-    <property name="type" value="water"/>
-   </properties>
-  </object>
-  <object id="57" gid="243" x="1918" y="148">
-   <properties>
-    <property name="sprite" value="water"/>
-    <property name="type" value="water"/>
-   </properties>
-  </object>
-  <object id="58" gid="243" x="1856" y="217">
-   <properties>
-    <property name="sprite" value="water"/>
-    <property name="type" value="water"/>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
    </properties>
   </object>
  </objectgroup>
