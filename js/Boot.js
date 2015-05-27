@@ -12,6 +12,8 @@ SideScroller.Boot.prototype = {
     //preloads assets used in the loading screen
     preload: function() {
         this.load.image('preloadbar', 'assets/images/preloader-bar.png');
+        
+        this.load.image('loading', 'assets/images/text/loading.png');
     },
     
   create: function() {

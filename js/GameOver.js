@@ -23,7 +23,7 @@ SideScroller.GameOver.prototype = {
     },
     startGame: function() {
         this.gameOverMusic.stop();
-        this.state.start('Game', false, true);
+        this.state.start('Game');
     },
     
     returnToMenu: function() {

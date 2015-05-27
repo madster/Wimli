@@ -1,51 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="70" height="6" tilewidth="70" tileheight="70" nextobjectid="35">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="70" height="6" tilewidth="70" tileheight="70" nextobjectid="48">
  <tileset firstgid="1" name="blue_land" tilewidth="70" tileheight="70" spacing="2">
   <image source="../images/blue_land.png" width="1024" height="1024"/>
  </tileset>
  <tileset firstgid="197" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2">
   <image source="../images/tiles_spritesheet.png" width="790" height="934"/>
  </tileset>
- <tileset firstgid="340" name="poop" tilewidth="56" tileheight="47">
-  <image source="../../../Assets/Doggy_graphics/Vectors/poop.png" width="56" height="47"/>
- </tileset>
- <tileset firstgid="341" name="heart" tilewidth="30" tileheight="25">
+ <tileset firstgid="340" name="heart" tilewidth="30" tileheight="25">
   <image source="../images/heart.png" width="30" height="25"/>
  </tileset>
- <tileset firstgid="342" name="tilesheet" tilewidth="128" tileheight="128">
-  <tile id="0">
-   <image width="128" height="128" source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/PNG/Tiles/bridgeA.png"/>
-  </tile>
-  <tile id="1">
-   <image width="128" height="128" source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/PNG/Tiles/bush.png"/>
-  </tile>
-  <tile id="2">
-   <image width="128" height="128" source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/PNG/Tiles/cactus.png"/>
-  </tile>
-  <tile id="3">
-   <image width="128" height="128" source="../../../Assets/kenneyDonation_v33/Art (14.494 files)/Platformer pack redux (360 assets)/PNG/Tiles/grass.png"/>
-  </tile>
-  <tile id="4">
-   <image width="85" height="64" source="../../../Assets/Doggy_graphics/Tiles/boneHill.png"/>
-  </tile>
-  <tile id="5">
-   <image width="64" height="64" source="../../../Assets/Doggy_graphics/Tiles/littlegrass.png"/>
-  </tile>
-  <tile id="6">
-   <image width="64" height="64" source="../../../Assets/Doggy_graphics/Tiles/littlegrass1.png"/>
-  </tile>
-  <tile id="7">
-   <image width="64" height="64" source="../../../Assets/Doggy_graphics/Tiles/pipegrass.png"/>
-  </tile>
-  <tile id="8">
-   <image width="64" height="64" source="../../../Assets/Doggy_graphics/Tiles/redflower.png"/>
-  </tile>
-  <tile id="9">
-   <image width="64" height="64" source="../../../Assets/Doggy_graphics/Tiles/yellowflower.png"/>
-  </tile>
-  <tile id="10">
-   <image width="35" height="29" source="../images/icons/poop.png"/>
-  </tile>
+ <tileset firstgid="341" name="poop" tilewidth="35" tileheight="29">
+  <image source="../images/icons/poop.png" width="35" height="29"/>
  </tileset>
  <layer name="backgroundLayer" width="70" height="6">
   <data encoding="csv">
@@ -74,85 +39,91 @@
     <property name="type" value="levelEnd"/>
    </properties>
   </object>
-  <object id="10" gid="341" x="2609.09" y="179.576">
+  <object id="10" gid="340" x="2609.09" y="179.576">
    <properties>
     <property name="sprite" value="heart"/>
     <property name="type" value="heart"/>
    </properties>
   </object>
-  <object id="16" gid="341" x="1067" y="277">
+  <object id="16" gid="340" x="1067" y="277">
    <properties>
     <property name="sprite" value="heart"/>
     <property name="type" value="heart"/>
    </properties>
   </object>
-  <object id="23" gid="234" x="-1.66667" y="352.333">
+  <object id="23" gid="234" x="17" y="265.666">
    <properties>
     <property name="sprite" value="levelStart"/>
     <property name="type" value="levelStart"/>
    </properties>
   </object>
-  <object id="24" gid="352" x="571" y="202">
+  <object id="36" gid="341" x="4464.33" y="328.667">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="25" gid="352" x="1312" y="288">
+  <object id="37" gid="341" x="4249.33" y="189.333">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="26" gid="352" x="1506" y="140">
+  <object id="38" gid="341" x="3968" y="118.667">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="27" gid="352" x="1732" y="285.333">
+  <object id="39" gid="341" x="3686.67" y="192">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="28" gid="352" x="4253.33" y="182">
+  <object id="40" gid="341" x="3408" y="261.333">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="29" gid="352" x="3412" y="246.667">
+  <object id="41" gid="341" x="2125.33" y="242.667">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="30" gid="352" x="3689.33" y="180">
+  <object id="42" gid="341" x="1738.67" y="284">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="31" gid="352" x="3968" y="108">
+  <object id="43" gid="341" x="1517.33" y="158.667">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="32" gid="352" x="2174.67" y="349.333">
+  <object id="44" gid="341" x="1313.33" y="285.333">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="33" gid="352" x="352" y="297.333">
+  <object id="45" gid="341" x="717.333" y="286.667">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>
    </properties>
   </object>
-  <object id="34" gid="352" x="758.667" y="298.667">
+  <object id="46" gid="341" x="570.667" y="212">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="47" gid="341" x="420" y="284">
    <properties>
     <property name="sprite" value="poop"/>
     <property name="type" value="poo"/>

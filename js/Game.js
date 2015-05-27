@@ -111,17 +111,15 @@ SideScroller.Game.prototype = {
         this.game.time.advancedTiming = true;
     },
     
-    create: function () {
-        console.log(this.level);
-        
-        if (this.level == 1) {
-            this.map = this.game.add.tilemap('level1');
-        }
+    create: function () {        
+        //if (this.level == 1) {
+            
+        /*}
         if (this.level == 2) {
             console.log("LEVEL 2");
             this.map = this.game.add.tilemap('level2');
-        }
-
+        */
+        this.map = this.game.add.tilemap('level1');
         //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
         this.map.addTilesetImage('tiles_spritesheet', 'blockedTiles');
         this.map.addTilesetImage('blue_land', 'background');
@@ -248,15 +246,15 @@ SideScroller.Game.prototype = {
         //this.initGameController();
 
         //sounds
-        this.game.sound.mute = false;
-        this.level1Music = this.game.add.audio('level1Music', 0.8, true);
-        this.level1Music.stop();
+        //this.game.sound.mute = false;
+        this.level1Music = this.game.add.audio('level1Music', 0.5, true);
         this.level1Music.play();
-        this.poopSound = this.game.add.audio('poop', 0.8);
-        this.heartSound = this.game.add.audio('heart');
+        this.poopSound = this.game.add.audio('poop', 0.5);
+        this.heartSound = this.game.add.audio('heart', 1);
         //this.waterSound = this.game.add.audio('water');
         
         this.score = this.game.add.sprite(canvasWidth * 0.86, canvasHeight * 0.08, 'score');
+        this.score.anchor.setTo(0.5, 0.5);
         this.score.anchor.setTo(0.5, 0.5);
         this.score.fixedToCamera = true;
         
@@ -280,13 +278,19 @@ SideScroller.Game.prototype = {
         health2.fixedToCamera = true;
         health3.fixedToCamera = true; 
         
-        pauseBtn = this.game.add.button(canvasWidth * 0.5, canvasHeight * 0.08, 'pauseBtn', this.managePause, this, 2, 1, 0);
+        quitBtn = this.game.add.button(canvasWidth * 0.02, canvasHeight * 0.90, 'buttons', this.gameOver, this, 7, 6, 7);
+        quitBtn.input.useHandCursor = true;
+        quitBtn.fixedToCamera = true;
+        
+        pauseBtn = this.game.add.button(canvasWidth * 0.09, canvasHeight * 0.90, 'buttons', this.managePause, this, 1, 0, 2);
         pauseBtn.input.useHandCursor = true;
         pauseBtn.fixedToCamera = true;
         
-        sfxBtn = this.game.add.button(canvasWidth * 0.5, canvasHeight * 0.08, 'sfxBtn', this.sfxOnOrOff, this, 2, 1, 0);
+        sfxBtn = this.game.add.button(canvasWidth * 0.16, canvasHeight * 0.90, 'buttons', this.sfxOnOrOff, this, 8, 9, 5);
         sfxBtn.input.useHandCursor = true;
         sfxBtn.fixedToCamera = true;
+        //initialised to not pressed
+        sfxBtn.on = false;
         
         //  You can drag the pop-up window around
         /*popup = this.game.add.sprite(canvasWidth * 0.5, canvasHeight * 0.5, 'pauseBackground');
@@ -375,7 +379,7 @@ SideScroller.Game.prototype = {
             if (this.cursors.left.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.A)) {
                 this.playerBack();
             }
-            if (this.cursors.up.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
+            if (this.cursors.up.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.W) || this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 this.playerJump();
             } 
             if (this.cursors.down.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.S)) {
@@ -491,7 +495,7 @@ SideScroller.Game.prototype = {
         }*/
         else if (itemType == "levelEnd") {
             //sound
-            this.game.time.events.add(700, this.nextLevel, this);
+            this.game.time.events.add(700, this.completeLevel, this);
         }
        
     },
@@ -583,12 +587,14 @@ SideScroller.Game.prototype = {
     },
     
     playerBack: function () {
+        this.player.anchor.setTo(0.5, 0.5);
         this.player.animations.play('walkBack');
         this.player.body.velocity.x -= 700;
         this.player.isMoving = true;
     },
     
     playerJump: function () {
+        this.player.anchor.setTo(0.5, 0.5);
         if (this.player.body.blocked.down) {
             this.player.animations.play('walk');
             this.player.body.velocity.y -= 700;
@@ -599,9 +605,10 @@ SideScroller.Game.prototype = {
     },
     
     playerDuck: function () {
+        this.player.anchor.setTo(0, 1);
         //change image and update the body size for the physics engine
         this.player.loadTexture('playerDuck');
-        //this.player.body.setSize(this.player.duckedDimensions.width, this.player.duckedDimensions.height);
+        this.player.body.setSize(this.player.duckedDimensions.width, this.player.duckedDimensions.height);
         //console.log("Duck height:" + this.player.duckedDimensions.height);
         //console.log("Duck width:" + this.player.duckedDimensions.width);  
         //we use this to keep track whether it's ducked or not
@@ -694,8 +701,8 @@ SideScroller.Game.prototype = {
     
     managePause: function() {
         this.game.paused = true;
-        //var pausedText = this.add.text(100, 250, "Game paused.\nPress left arrow to continue.", this._fontStyle);
-        //pausedText.fixedToCamera = true;
+        var pausedText = this.add.text(canvasWidth/2, canvasHeight/2, "Game paused", this._fontStyle);
+        pausedText.fixedToCamera = true;
         this.input.onDown.add(
             function() {
                 //pausedText.destroy();
@@ -705,7 +712,7 @@ SideScroller.Game.prototype = {
         //this.openWindow;
     },
     
-    openWindow: function() {
+    /*openWindow: function() {
         if ((tween !== null && tween.isRunning) || popup.scale.x === 1) {
         return;
         }
@@ -724,31 +731,28 @@ SideScroller.Game.prototype = {
 
         this.game.paused = false;
     },
-    
-    nextLevel: function() {
+    */
+    completeLevel: function() {
         level = this.level+1;
-        this.game.state.start('LevelFinish', level);
+        this.level1Music.stop();
+        health = 6;
+        this.game.state.start('LevelFinish', level, score);
     },
     
-    sfxOnOrOff: function() {
+    sfxOnOrOff: function(btn) {
+        
+        btn.on = !btn.on;
+        btn.setFrames(4, (btn.on)?3:9, 3);
+        btn.frame = (btn.on)?3:5;
         
         if(this.game.sound.mute == false) {
             this.game.sound.mute = true;
-            console.log("was false now true: " + this.sfxOff)
-            console.log("sfxOff = " + sfxOff)
-            console.log("this.game.sound.mute = " + this.game.sound.mute)
             return;
         }
         else if(this.game.sound.mute == true) {
             this.game.sound.mute = false;
-            console.log("was true now false: " + this.sfxOff)
-            
-            console.log("sfxOff = " + sfxOff)
-            console.log("this.game.sound.mute = " + this.game.sound.mute)
             return;
         }
-        //this.poopSound.pause();
-        //this.heartSound.pause();
     },
     
     render: function () {

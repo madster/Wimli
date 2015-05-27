@@ -45,7 +45,7 @@
                  "y":349.833
                 }, 
                 {
-                 "gid":341,
+                 "gid":340,
                  "height":0,
                  "id":10,
                  "name":"",
@@ -62,7 +62,7 @@
                  "y":179.576
                 }, 
                 {
-                 "gid":341,
+                 "gid":340,
                  "height":0,
                  "id":16,
                  "name":"",
@@ -92,13 +92,13 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":-1.66667,
-                 "y":352.333
+                 "x":16.9999966666667,
+                 "y":265.666333333333
                 }, 
                 {
-                 "gid":352,
+                 "gid":341,
                  "height":0,
-                 "id":24,
+                 "id":36,
                  "name":"",
                  "properties":
                     {
@@ -109,13 +109,13 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":571,
-                 "y":202
+                 "x":4464.33333333333,
+                 "y":328.666666666667
                 }, 
                 {
-                 "gid":352,
+                 "gid":341,
                  "height":0,
-                 "id":25,
+                 "id":37,
                  "name":"",
                  "properties":
                     {
@@ -126,98 +126,13 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1312,
-                 "y":288
+                 "x":4249.33333333333,
+                 "y":189.333333333333
                 }, 
                 {
-                 "gid":352,
+                 "gid":341,
                  "height":0,
-                 "id":26,
-                 "name":"",
-                 "properties":
-                    {
-                     "sprite":"poop",
-                     "type":"poo"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":1506,
-                 "y":140
-                }, 
-                {
-                 "gid":352,
-                 "height":0,
-                 "id":27,
-                 "name":"",
-                 "properties":
-                    {
-                     "sprite":"poop",
-                     "type":"poo"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":1732,
-                 "y":285.333333333333
-                }, 
-                {
-                 "gid":352,
-                 "height":0,
-                 "id":28,
-                 "name":"",
-                 "properties":
-                    {
-                     "sprite":"poop",
-                     "type":"poo"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":4253.33333333333,
-                 "y":182
-                }, 
-                {
-                 "gid":352,
-                 "height":0,
-                 "id":29,
-                 "name":"",
-                 "properties":
-                    {
-                     "sprite":"poop",
-                     "type":"poo"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":3412,
-                 "y":246.666666666667
-                }, 
-                {
-                 "gid":352,
-                 "height":0,
-                 "id":30,
-                 "name":"",
-                 "properties":
-                    {
-                     "sprite":"poop",
-                     "type":"poo"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":3689.33333333333,
-                 "y":180
-                }, 
-                {
-                 "gid":352,
-                 "height":0,
-                 "id":31,
+                 "id":38,
                  "name":"",
                  "properties":
                     {
@@ -229,12 +144,12 @@
                  "visible":true,
                  "width":0,
                  "x":3968,
-                 "y":108
+                 "y":118.666666666667
                 }, 
                 {
-                 "gid":352,
+                 "gid":341,
                  "height":0,
-                 "id":32,
+                 "id":39,
                  "name":"",
                  "properties":
                     {
@@ -245,13 +160,13 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2174.66666666667,
-                 "y":349.333333333333
+                 "x":3686.66666666667,
+                 "y":192
                 }, 
                 {
-                 "gid":352,
+                 "gid":341,
                  "height":0,
-                 "id":33,
+                 "id":40,
                  "name":"",
                  "properties":
                     {
@@ -262,13 +177,13 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":352,
-                 "y":297.333333333333
+                 "x":3408,
+                 "y":261.333333333333
                 }, 
                 {
-                 "gid":352,
+                 "gid":341,
                  "height":0,
-                 "id":34,
+                 "id":41,
                  "name":"",
                  "properties":
                     {
@@ -279,8 +194,110 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":758.666666666667,
-                 "y":298.666666666667
+                 "x":2125.33333333333,
+                 "y":242.666666666667
+                }, 
+                {
+                 "gid":341,
+                 "height":0,
+                 "id":42,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"poop",
+                     "type":"poo"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1738.66666666667,
+                 "y":284
+                }, 
+                {
+                 "gid":341,
+                 "height":0,
+                 "id":43,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"poop",
+                     "type":"poo"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1517.33333333333,
+                 "y":158.666666666667
+                }, 
+                {
+                 "gid":341,
+                 "height":0,
+                 "id":44,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"poop",
+                     "type":"poo"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1313.33333333333,
+                 "y":285.333333333333
+                }, 
+                {
+                 "gid":341,
+                 "height":0,
+                 "id":45,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"poop",
+                     "type":"poo"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":717.333333333333,
+                 "y":286.666666666667
+                }, 
+                {
+                 "gid":341,
+                 "height":0,
+                 "id":46,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"poop",
+                     "type":"poo"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":570.666666666666,
+                 "y":212
+                }, 
+                {
+                 "gid":341,
+                 "height":0,
+                 "id":47,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"poop",
+                     "type":"poo"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":420,
+                 "y":284
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -289,7 +306,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":35,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "properties":
     {
@@ -330,21 +347,6 @@
         }, 
         {
          "firstgid":340,
-         "image":"..\/..\/..\/Assets\/Doggy_graphics\/Vectors\/poop.png",
-         "imageheight":47,
-         "imagewidth":56,
-         "margin":0,
-         "name":"poop",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":47,
-         "tilewidth":56
-        }, 
-        {
-         "firstgid":341,
          "image":"..\/images\/heart.png",
          "imageheight":25,
          "imagewidth":30,
@@ -359,63 +361,19 @@
          "tilewidth":30
         }, 
         {
-         "firstgid":342,
+         "firstgid":341,
+         "image":"..\/images\/icons\/poop.png",
+         "imageheight":29,
+         "imagewidth":35,
          "margin":0,
-         "name":"tilesheet",
+         "name":"poop",
          "properties":
             {
 
             },
          "spacing":0,
-         "tileheight":128,
-         "tiles":
-            {
-             "0":
-                {
-                 "image":"..\/..\/..\/Assets\/kenneyDonation_v33\/Art (14.494 files)\/Platformer pack redux (360 assets)\/PNG\/Tiles\/bridgeA.png"
-                },
-             "1":
-                {
-                 "image":"..\/..\/..\/Assets\/kenneyDonation_v33\/Art (14.494 files)\/Platformer pack redux (360 assets)\/PNG\/Tiles\/bush.png"
-                },
-             "10":
-                {
-                 "image":"..\/images\/icons\/poop.png"
-                },
-             "2":
-                {
-                 "image":"..\/..\/..\/Assets\/kenneyDonation_v33\/Art (14.494 files)\/Platformer pack redux (360 assets)\/PNG\/Tiles\/cactus.png"
-                },
-             "3":
-                {
-                 "image":"..\/..\/..\/Assets\/kenneyDonation_v33\/Art (14.494 files)\/Platformer pack redux (360 assets)\/PNG\/Tiles\/grass.png"
-                },
-             "4":
-                {
-                 "image":"..\/..\/..\/Assets\/Doggy_graphics\/Tiles\/boneHill.png"
-                },
-             "5":
-                {
-                 "image":"..\/..\/..\/Assets\/Doggy_graphics\/Tiles\/littlegrass.png"
-                },
-             "6":
-                {
-                 "image":"..\/..\/..\/Assets\/Doggy_graphics\/Tiles\/littlegrass1.png"
-                },
-             "7":
-                {
-                 "image":"..\/..\/..\/Assets\/Doggy_graphics\/Tiles\/pipegrass.png"
-                },
-             "8":
-                {
-                 "image":"..\/..\/..\/Assets\/Doggy_graphics\/Tiles\/redflower.png"
-                },
-             "9":
-                {
-                 "image":"..\/..\/..\/Assets\/Doggy_graphics\/Tiles\/yellowflower.png"
-                }
-            },
-         "tilewidth":128
+         "tileheight":29,
+         "tilewidth":35
         }],
  "tilewidth":70,
  "version":1,

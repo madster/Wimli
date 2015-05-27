@@ -1,7 +1,7 @@
 var SideScroller = SideScroller || {};
 
 //loading the game assets
-SideScroller.LevelFinish = function(game){};
+SideScroller.LevelFinish = function(game, level, score){};
 
 SideScroller.LevelFinish.prototype = {
     create: function() {
@@ -17,10 +17,17 @@ SideScroller.LevelFinish.prototype = {
         this.nextLevel.anchor.setTo(0.5, 0.5);
         this.mainMenuBtn.anchor.setTo(0.5, 0.5);
         
+        //score displayed
+        var style = { font: "30px Arial", fill: "#ff0044", align: "center" };
+        var scoreLbl = this.game.add.text(canvasWidth * 0.94, canvasHeight * 0.08, "text", style);
+        scoreLbl.anchor.set(0.5, 0.5);
+        scoreLbl.text = score;
+        
     },
     nextLevel: function() {
+        score = 0;
         //Params(state, clearCache, clearGameWorld,level
-        this.state.start('Game', true, false, level)
+        this.state.start('Game', level)
     },
     
     returnToMenu: function() {

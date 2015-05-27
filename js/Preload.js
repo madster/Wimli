@@ -10,6 +10,8 @@ SideScroller.Preload = function(){
 SideScroller.Preload.prototype = {
   preload: function() {
     //show loading screen
+    this.preloadTitle = this.add.sprite(this.game.world.centerX, this.game.world.centerY/2, 'loading');
+    this.preloadTitle.anchor.setTo(0.5, 0.5);
     this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloadbar');
     this.preloadBar.anchor.setTo(0.5);
     this.preloadBar.scale.setTo(3);
@@ -23,16 +25,15 @@ SideScroller.Preload.prototype = {
     this.load.image('optionsBtn', 'assets/images/buttons/optionsBtn.png'); 
     this.load.image('wimli', 'assets/images/player/startWimli.png');
     this.load.image('title', 'assets/images/text/title.png');
-      
+
     this.load.audio('mainMenu', 'assets/audio/mainMenu.ogg');  
     //game assets
     //level
     this.load.tilemap('level1', 'assets/tilemaps/level1.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.image('blockedTiles', 'assets/images/tiles_spritesheet.png');
-    this.load.image('background', 'assets/images/level1/blue_land.png');
+    this.load.image('background', 'assets/images/blue_land.png');
     this.load.spritesheet('levelspritesheet', 'assets/images/tiles_spritesheet.png', 70, 70);
 
-      
     this.load.audio('level1Music', 'assets/audio/level1.ogg');    
     //player
     this.load.image('player', 'assets/images/player/player.png');
@@ -54,9 +55,10 @@ SideScroller.Preload.prototype = {
     this.load.image('levelStart', 'assets/images/icons/levelStart.png');
     this.load.image('levelEnd', 'assets/images/icons/levelEnd.png');
 
-    //pause menu
-    this.load.image('pauseBtn', 'assets/images/buttons/pauseBtn2.png'); 
-    this.load.image('pauseBackground', 'assets/images/uncolored_plain.png');
+    //buttons
+    this.load.image('pauseBtn', 'assets/images/buttons/pauseBtn.png'); 
+    
+    this.load.spritesheet('buttons', 'assets/images/buttons/btnSpritesheet.png', 35, 35, 10);
 
     //enemies
     this.load.image('enemyBee', 'assets/images/enemies/enemyBee.png');
@@ -72,12 +74,12 @@ SideScroller.Preload.prototype = {
     this.load.image('retryBtn', 'assets/images/buttons/retryBtn.png');  
     this.load.image('levelComplete', 'assets/images/text/levelComplete.png');  
     this.load.audio('gameOver', 'assets/audio/gameOver.ogg');  
-      
+
     //audio
     this.load.audio('poop', ['assets/audio/bark.ogg', 'assets/audio/bark.mp3']);
     this.load.audio('heart', 'assets/audio/health.ogg');
     this.load.audio('water', 'assets/audio/water.ogg');  
-    
+
   },
   create: function() {
     this.state.start('MainMenu');
