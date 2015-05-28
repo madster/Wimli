@@ -34,13 +34,17 @@ SideScroller.Preload.prototype = {
     this.load.image('background', 'assets/images/blue_land.png');
     this.load.spritesheet('levelspritesheet', 'assets/images/tiles_spritesheet.png', 70, 70);
 
+    //level 2
+    this.load.tilemap('level3', 'assets/tilemaps/level3.json', null, Phaser.Tilemap.TILED_JSON);
+      
+      
     this.load.audio('level1Music', 'assets/audio/level1.ogg');    
     //player
     this.load.image('player', 'assets/images/player/player.png');
     this.load.image('playerDuck', 'assets/images/player/player_duck.png');
     this.load.image('playerJump', 'assets/images/player/player_jump.png');  
-    this.load.image('playerDead', 'assets/images/player/player_dead.png');  
-    this.load.image('playerBack', 'assets/images/player/player_back.png'); 
+    this.load.image('playerDead', 'assets/images/player/player_dead.png'); 
+    this.load.image('playerBack', 'assets/images/player/player_back.png');   
     this.load.spritesheet('playerspritesheet', 'assets/images/player/bfspritesheet.png', 80, 78, 22);
     this.load.image('blank', 'assets/images/player/blank.png');
     //items
@@ -49,19 +53,18 @@ SideScroller.Preload.prototype = {
     this.load.image('healthFull', 'assets/images/icons/healthFull.png');    
     this.load.image('healthHalf', 'assets/images/icons/healthHalf.png');  
     this.load.image('healthEmpty', 'assets/images/icons/healthEmpty.png');  
-    this.load.image('water', 'assets/images/icons/water.png');
+    //this.load.image('water', 'assets/images/icons/water.png');
     this.load.image('score', 'assets/images/icons/trophy.png');
     this.load.image('peePower', 'assets/images/icons/peePower.png');
     this.load.image('levelStart', 'assets/images/icons/levelStart.png');
     this.load.image('levelEnd', 'assets/images/icons/levelEnd.png');
 
     //buttons
-    this.load.image('pauseBtn', 'assets/images/buttons/pauseBtn.png'); 
-    
     this.load.spritesheet('buttons', 'assets/images/buttons/btnSpritesheet.png', 35, 35, 10);
 
     //enemies
-    this.load.image('enemyBee', 'assets/images/enemies/enemyBee.png');
+    this.load.spritesheet('bee', 'assets/images/enemies/beeSpritesheet.png', 70, 66, 2);
+    this.load.spritesheet('spider', 'assets/images/enemies/spiderSpritesheet.png', 72, 51, 4);
     this.load.image('bullet', 'assets/images/enemies/bullet.png');
     //Params (key, location, widthPerSprite, heightPerSprite, noOfSprites)
     this.load.spritesheet('kaboom', 'assets/images/enemies/explosion.png', 64, 64, 23);

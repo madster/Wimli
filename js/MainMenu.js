@@ -28,6 +28,6 @@ SideScroller.MainMenu.prototype = {
     },
     startGame: function() {
         this.mainMenuMusic.stop();
-        this.state.start('Game', 1);
+        this.state.start('Game', true, false, 1);
     }
 };

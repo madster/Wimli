@@ -3,59 +3,101 @@ var SideScroller = SideScroller || {};
 //                 //
 // ENEMY PROTOTYPE //
 //                 //
-Enemy = function (index, game, player, enemyBullets) {
+Enemy = function (index, game, player, enemyBullets, type) {
 
     this.game = game;
     this.enemyHealth = 1; 
     this.player = player;
     this.enemyBullets = enemyBullets;
+    this.type = type; 
     this.fireRate = 10000; // low fire rate
     this.nextFire = 0;
     this.alive = true;
+    //this.enemy = enemy;
     
     // enemies shouldn't generate in the first "frame" of the game
     var min = game.canvas.width;
     var max = game.world.width;
     var x = game.rnd.between(min, max);
     // these enemies will only generate within the upper portion of the game as they are flying enemies
-    var y = game.rnd.between(0, 113);
+    var y = game.rnd.between(30, 113);
+    // spiders will should generate close to the ground
+    var spiderY = game.rnd.between(30, 113);
     
-    // create enemy
-    this.enemy = game.add.sprite(x, y, 'bunny');
-    this.enemy.animations.add('walk');
-    this.enemy.anchor.set(0.5, 1);
-    this.enemy.name = index.toString();
-    game.physics.enable(this.enemy, Phaser.Physics.ARCADE);
-    //this.enemy.body.immovable = false;
-    this.enemy.body.collideWorldBounds = true;
-    this.enemy.body.bounce.setTo(1, 1);
-    this.enemy.body.gravity.y = gravity;
+    if (this.type=="bunny") {    
+        // create enemy
+        this.enemy = game.add.sprite(x, y, 'bunny');
+        this.enemy.animations.add('bunnyJump');
+        this.enemy.anchor.set(0.5, 1);
+        this.enemy.name = index;
+        game.physics.enable(this.enemy, Phaser.Physics.ARCADE);
+        this.enemy.body.collideWorldBounds = true;
+        this.enemy.body.bounce.setTo(1, 1);
+        this.enemy.body.gravity.y = gravity;
+    }
+    if (this.type=="bee") {
+        // create enemy
+        this.enemy2 = game.add.sprite(x, y, 'bee');
+        this.enemy2.animations.add('beeFly', [0,1], false);
+        this.enemy2.anchor.set(0.5, 1);
+        this.enemy2.name = index.toString();
+        game.physics.enable(this.enemy2, Phaser.Physics.ARCADE);
+        this.enemy2.body.immovable = true;
+        this.enemy2.body.collideWorldBounds = true;
+        this.enemy2.body.bounce.setTo(0, 0);
+        this.enemy2.body.gravity.y = 0;
+    }
+    if (this.type=="spider") {
+        this.enemy3 = game.add.sprite(x, spiderY, 'spider');
+        this.player.animations.add('spiderWalk', [0,1], 30, false);
+        this.enemy3.anchor.set(0.5, 1);
+        this.enemy3.name = index.toString();
+        game.physics.enable(this.enemy3, Phaser.Physics.ARCADE);
+        this.enemy3.body.immovable = true;
+        this.enemy3.body.collideWorldBounds = true;
+        this.enemy3.body.bounce.setTo(0, 0);
+        this.enemy3.body.gravity.y = gravity;
+    }
 };
 
-Enemy.prototype.damage = function() {
+Enemy.prototype.damage = function(type) {
 
     this.enemyHealth -= 1;
 
-    if (this.enemyHealth <= 0) {
-        this.alive = false;
-        this.enemy.kill();
-
-        return true;
+    if (type=="bunny") {
+        if (this.enemyHealth <= 0) {
+            this.alive = false;
+            this.enemy.kill();
+            return true;
+        }
+        return false;
     }
-
-    return false;
+    
+    if (type=="bee") {
+        if (this.enemyHealth <= 0) {
+            this.alive = false;
+            this.enemy2.kill();
+            return true;
+        }
+        return false
+    }
+    
+    if (type=="spider") {
+        if (this.enemyHealth <= 0) {
+            this.alive = false;
+            this.enemy3.kill();
+            return true;
+        }
+        return false
+    }
 
 }
 
 Enemy.prototype.update = function() {
     
-    //this.enemy.rotation = this.game.physics.arcade.angleBetween(this.enemy, this.player);
-    //if player is on screen with enemy (canvasWidth/2 because player is anchored in the centre of the screen),
-    //enemy fires towards player
-    
-    if (this.game.physics.arcade.distanceBetween(this.enemy, this.player) < canvasWidth/2) {
-        if (this.game.time.now > this.nextFire && this.enemyBullets.countDead() > 0)
-        {
+    /*if (this.type=="bunny") {  
+        if (this.game.physics.arcade.distanceBetween(this.enemy, this.player) < canvasWidth/2) {
+            if (this.game.time.now > this.nextFire && this.enemyBullets.countDead() > 0) {
             this.nextFire = this.game.time.now + this.fireRate;
 
             var bullet = this.enemyBullets.getFirstDead();
@@ -63,10 +105,38 @@ Enemy.prototype.update = function() {
             bullet.reset(this.enemy.x, this.enemy.y);
 
             bullet.rotation = this.game.physics.arcade.moveToObject(bullet, this.player, 100);
-        }
-    }
+            }
+        }*/
 
-};
+        if (this.type=="bee") {
+            if (this.game.physics.arcade.distanceBetween(this.enemy2, this.player) < canvasWidth/2) {
+                if (this.game.time.now > this.nextFire && this.enemyBullets.countDead() > 0) {
+                this.nextFire = this.game.time.now + this.fireRate;
+
+                var bullet = this.enemyBullets.getFirstDead();
+
+                bullet.reset(this.enemy2.x, this.enemy2.y);
+
+                bullet.rotation = this.game.physics.arcade.moveToObject(bullet, this.player, 100);
+                }
+            }
+        }
+/*
+        if (this.game.physics.arcade.distanceBetween(this.enemy, this.player) < canvasWidth/2) {
+            if (this.type=="spider") {
+                if (this.game.time.now > this.nextFire && this.enemyBullets.countDead() > 0) {
+                this.nextFire = this.game.time.now + this.fireRate;
+
+                var bullet = this.enemyBullets.getFirstDead();
+
+                bullet.reset(this.enemy.x, this.enemy.y);
+
+                bullet.rotation = this.game.physics.arcade.moveToObject(bullet, this.player, 100);
+                }
+            }
+        }*/
+    //}
+    };
 
 var gravity = 1000;
 var outOfBoundsHeight = 340;
@@ -75,24 +145,22 @@ var startPosY = 300;
 var scoreLbl = null;
 var score = 0;
 var health = 6;
-var pauseBtn;
-var tween = null;
-var popup;
-var shooter;
-
-var canvasWidth;
-var canvasHeight;
-
-var enemies;
-var enemyBullets;
-var playerBullets;
 var nextFire = 0;
 var fireRate = 100;
+var enemies, beeEnemies, spiderEnemies, enemyBullets; 
+var playerBullets;
+var pauseBtn;
+//var tween = null;
+//var popup;
+var shooter;
+var canvasWidth, canvasHeight;
 var explosions;
 var cursors;
-
 var level;
-var sfxOff;
+var timer, timerEvent, text;
+var seconds = 0;
+var minutes = 0;
+var enemyCount, bunnyTotal, spiderTotal, beeTotal;
 
 //                 //
 // GAME PROTOTYPE //
@@ -111,15 +179,22 @@ SideScroller.Game.prototype = {
         this.game.time.advancedTiming = true;
     },
     
-    create: function () {        
-        //if (this.level == 1) {
-            
-        /*}
+    create: function () {    
+        
+        console.log(this.level);
+        
+        if (this.level == 1) {
+            console.log("LEVEL 1");
+            this.map = this.game.add.tilemap('level1');
+            bunnyTotal = 5;
+            beeTotal = 5;
+            spiderTotal = 5;
+            //enemyCount = 0;
+        }
         if (this.level == 2) {
             console.log("LEVEL 2");
-            this.map = this.game.add.tilemap('level2');
-        */
-        this.map = this.game.add.tilemap('level1');
+            this.map = this.game.add.tilemap('level3');
+        }
         //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
         this.map.addTilesetImage('tiles_spritesheet', 'blockedTiles');
         this.map.addTilesetImage('blue_land', 'background');
@@ -140,12 +215,12 @@ SideScroller.Game.prototype = {
         
         //create player
         //params = (game, startPositionX,startPositionY, key, frame)
-        //this.player = this.game.add.sprite(startPosX, startPosY, 'player');
         this.player = this.game.add.sprite(startPosX, startPosY, 'playerspritesheet', 11);
         //enable physics on the player
         this.game.physics.arcade.enable(this.player);
-        this.player.animations.add('walk', [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 30, false);
-        this.player.animations.add('walkBack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 30, false);
+        //add player animations
+        this.player.animations.add('walkForward', [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 20, false);
+        this.player.animations.add('walkBack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 20, false);
         this.player.anchor.setTo(0.5, 0.5);
 
         //the camera will follow the player in the world
@@ -154,8 +229,6 @@ SideScroller.Game.prototype = {
         //get canvas width and height for later use
         canvasWidth = this.game.canvas.width;
         canvasHeight = this.game.canvas.height;
-        console.log(canvasWidth);
-        console.log(canvasHeight);
         
         //create enemy
         var x = this.game.rnd.between(80, this.game.world.width);
@@ -191,13 +264,15 @@ SideScroller.Game.prototype = {
         
         //create enemies
         enemies = [];
-        enemiesTotal = 5; 
-        for (var i = 0; i < enemiesTotal; i++) {
-            enemies.push(new Enemy(i, this.game, this.player, enemyBullets));
-        }
+        beeEnemies = [];
+        spiderEnemies = [];
+        // bunnies
+        this.createEnemies("bunny", bunnyTotal);
+        // bees              
+        this.createEnemies("bee", beeTotal);
+        // spiders              
+        this.createEnemies("spider", spiderTotal);
         
-        
-
         //bring player shooting point to the top (not totally necessary)
         this.shooter.sendToBack();
         
@@ -214,23 +289,6 @@ SideScroller.Game.prototype = {
         
         //player collides with all four edges of the game world
         this.player.body.collideWorldBounds = true;
-        
-        //properties when the player is ducked and standing, so we can use in update()
-        var playerDuckImg = this.game.cache.getImage('playerDuck');
-        this.player.duckedDimensions = {
-            width: playerDuckImg.width,
-            height: playerDuckImg.height
-        };
-        this.player.standDimensions = {
-            width: this.player.width,
-            height: this.player.height
-        };
-        
-        var playerJumpImg = this.game.cache.getImage('playerJump');
-        this.player.jumpDimensions = {
-            width: playerJumpImg.width,
-            height: playerJumpImg.height
-        };
 
         //move player with cursor keys
         this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -253,6 +311,10 @@ SideScroller.Game.prototype = {
         this.heartSound = this.game.add.audio('heart', 1);
         //this.waterSound = this.game.add.audio('water');
         
+        
+        // HUD //
+        
+        //trophy sprite
         this.score = this.game.add.sprite(canvasWidth * 0.86, canvasHeight * 0.08, 'score');
         this.score.anchor.setTo(0.5, 0.5);
         this.score.anchor.setTo(0.5, 0.5);
@@ -292,14 +354,15 @@ SideScroller.Game.prototype = {
         //initialised to not pressed
         sfxBtn.on = false;
         
-        //  You can drag the pop-up window around
-        /*popup = this.game.add.sprite(canvasWidth * 0.5, canvasHeight * 0.5, 'pauseBackground');
-        popup.alpha = 0.8;
-        popup.anchor.set(0.5);
-        popup.inputEnabled = true;
-        popup.input.enableDrag();
+        // Create a custom timer
+        timer = this.game.time.create();
         
-        popup.scale.set(0);*/
+        // Create a delayed event 1m and 30s from now
+        timerEvent = timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 0, this.endTimer, this);
+        
+        // Start the timer
+        timer.start();
+        
     },
 
     //find objects in a Tiled layer that contain a property called "type" equal to a certain value
@@ -341,7 +404,7 @@ SideScroller.Game.prototype = {
        //if player and enemy bullets hit each other, the enemy bullet is destroyed
        this.game.physics.arcade.overlap(enemyBullets, playerBullets, this.bulletHitBullet, null, this)
        
-        //collision for all enemies
+        //collision for bunny enemies
         for (var i = 0; i < enemies.length; i++) {
             if (enemies[i].alive) {                
 
@@ -349,14 +412,53 @@ SideScroller.Game.prototype = {
                 this.game.physics.arcade.collide(this.player, enemies[i].enemy, this.enemyHitPlayer, null, this);
 
                 //overlap between player bullets and enemies
-                this.game.physics.arcade.overlap(playerBullets, enemies[i].enemy, this.bulletHitEnemy, null, this);
+                this.game.physics.arcade.overlap(playerBullets, enemies[i].enemy, this.bulletHitBunny, null, this);
 
                 //collision between enemies and platforms
                 this.game.physics.arcade.collide(enemies[i].enemy, this.blockedLayer, null, null, this);
                 
-                enemies[i].enemy.animations.play('walk', 50, true);
+                enemies[i].enemy.animations.play('bunnyJump', 30, true);
                 
                 enemies[i].update();
+            }
+        }
+       
+        //collision for bee enemies
+        for (var i = 0; i < beeEnemies.length; i++) {
+            if (beeEnemies[i].alive) {   
+                console.log()
+
+                //collision between player body and enemy body
+                this.game.physics.arcade.collide(this.player, beeEnemies[i].enemy2, this.enemyHitPlayer, null, this);
+
+                //overlap between player bullets and enemies
+                this.game.physics.arcade.overlap(playerBullets, beeEnemies[i].enemy2, this.bulletHitBee, null, this);
+
+                //collision between enemies and platforms
+                this.game.physics.arcade.collide(beeEnemies[i].enemy, this.blockedLayer, null, null, this);
+                
+                beeEnemies[i].enemy2.animations.play('beeFly', 50, true);
+                
+                beeEnemies[i].update();
+            }
+        }
+        
+        //collision for spider enemies
+        for (var i = 0; i < spiderEnemies.length; i++) {
+            if (spiderEnemies[i].alive) {                
+
+                //collision between player body and enemy body
+                this.game.physics.arcade.collide(this.player, spiderEnemies[i].enemy3, this.enemyHitPlayer, null, this);
+
+                //overlap between player bullets and enemies
+                this.game.physics.arcade.overlap(playerBullets, spiderEnemies[i].enemy3, this.bulletHitSpider, null, this);
+
+                //collision between enemies and platforms
+                this.game.physics.arcade.collide(spiderEnemies[i].enemy3, this.blockedLayer, null, null, this);
+                
+                spiderEnemies[i].enemy3.animations.play('spiderWalk', 20, true);
+                
+                spiderEnemies[i].update();
             }
         }
         
@@ -383,15 +485,6 @@ SideScroller.Game.prototype = {
                 this.playerJump();
             } 
             if (this.cursors.down.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.S)) {
-                this.playerDuck();
-            }
-
-            if (!this.cursors.down.isDown && this.player.isDucked && !this.pressingDown) {
-                //change image and update the body size for the physics engine
-                this.player.animations.play('walk');
-                //this.player.loadTexture('playerDuck');
-                this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
-                this.player.isDucked = false;
             }
         }
             
@@ -404,7 +497,9 @@ SideScroller.Game.prototype = {
             if(this.player.y > outOfBoundsHeight) {
                 this.playerDead();
             }
-            
+          
+        this.updateTimer();
+        
         },
     
     bulletHitPlayer: function (enemy, bullet) {
@@ -412,16 +507,38 @@ SideScroller.Game.prototype = {
         bullet.kill();
     },
     
-    bulletHitEnemy: function (enemy, bullet) {
+    bulletHitBunny: function (enemy, bullet) {
         bullet.kill();
-
-        var destroyed = enemies[enemy.name].damage();
-
+        var destroyed = enemies[enemy.name].damage("bunny");
         if (destroyed) {
             //explosion when enemy gets hit by player bullet
             this.increaseItem("score");
             var explosionAnimation = explosions.getFirstExists(false);
             explosionAnimation.reset(enemy.x, enemy.y);
+            explosionAnimation.play('kaboom', 30, false, true);
+        }
+    },
+    
+    bulletHitBee: function (enemy2, bullet) {
+        bullet.kill();
+        var destroyed = beeEnemies[enemy2.name].damage("bee");  
+         if (destroyed) {
+            //explosion when enemy gets hit by player bullet
+            this.increaseItem("score");
+            var explosionAnimation = explosions.getFirstExists(false);
+            explosionAnimation.reset(enemy2.x, enemy2.y);
+            explosionAnimation.play('kaboom', 30, false, true);
+        }
+    },
+    
+    bulletHitSpider: function (enemy3, bullet) {
+        bullet.kill();
+        var destroyed = spiderEnemies[enemy3.name].damage("spider");  
+         if (destroyed) {
+            //explosion when enemy gets hit by player bullet
+            this.increaseItem("score");
+            var explosionAnimation = explosions.getFirstExists(false);
+            explosionAnimation.reset(enemy3.x, enemy3.y);
             explosionAnimation.play('kaboom', 30, false, true);
         }
     },
@@ -451,28 +568,6 @@ SideScroller.Game.prototype = {
 
     },
     
-    checkPlayerHit: function (player) {
-        
-        //Collision with an enemy (except if player jumps on enemy head) reduces health
-        //if (player.body.blocked.down) {
-            console.log("Right: " + player.body.blocked.right);
-            console.log("Left: " + player.body.blocked.left);
-            console.log("Top: " + player.body.blocked.top);
-            console.log("Bottom: " + player.body.blocked.down);
-            
-            /*if(player.body.blocked.left || player.body.blocked.right || player.body.blocked.up) {
-            //this.enemyDead();
-            console.log("Left should be blocked but... " + player.body.blocked);
-            }
-            else if (player.body.blocked.right) {
-                //this.enemyDead();
-                console.log("Right should be blocked but... " + player.body.blocked);
-            }
-            else if (player.body.blocked.up) {
-                console.log("Up should be blocked but... " + player.body.blocked);
-            }*/
-        },
-    
     collect: function (player, item) {
         itemType = item.sprite;
         
@@ -499,54 +594,6 @@ SideScroller.Game.prototype = {
         }
        
     },
-    
-    /*initGameController: function () {
-
-        if (!GameController.hasInitiated) {
-            var that = this;
-
-            GameController.init({
-               
-                left: 'none',
-                right: {
-                    position: {right: 130, bottom: 70},
-                    type: 'buttons',
-                    buttons: [
-                        
-                        {
-                            label: 'J',
-                            touchStart: function () {
-                                if (!that.player.alive) {
-                                    return;
-                                }
-                                that.playerJump();
-                            },
-                            touchEnd: function () {
-                                that.pressingDown = false;
-                            }
-                        },
-                        false, 
-                        {
-                            label: 'D',
-                            touchStart: function () {
-                                if (!that.player.alive) {
-                                    return;
-                                }
-                                that.pressingDown = true;
-                                that.playerDuck();
-                            },
-                            touchEnd: function () {
-                                that.pressingDown = false;
-                            }
-                        },
-                        false
-                    ]
-                },
-            });
-            GameController.hasInitiated = true;
-        }
-
-    },*/
     
     //create collectable items
     createItems: function () {
@@ -577,13 +624,9 @@ SideScroller.Game.prototype = {
 
     playerForward: function () {
         this.player.body.velocity.x = 700;
-        this.player.animations.play('walk');
-        //this.player.loadTexture('player');
-        this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
-        
+        this.player.animations.play('walkForward');
+        //this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
         this.player.isMoving = true;
-        //console.log("Forward height:" + this.player.standDimensions.height);
-        //console.log("Forward width:" + this.player.standDimensions.width);  
     },
     
     playerBack: function () {
@@ -596,23 +639,10 @@ SideScroller.Game.prototype = {
     playerJump: function () {
         this.player.anchor.setTo(0.5, 0.5);
         if (this.player.body.blocked.down) {
-            this.player.animations.play('walk');
-            this.player.body.velocity.y -= 700;
-            //console.log("Jump height:" + this.player.jumpDimensions.height);
-            //console.log("Jump width:" + this.player.jumpDimensions.width);    
+            this.player.animations.play('walkForward');
+            this.player.body.velocity.y -= 700;   
         }
         this.player.isJumping = true;
-    },
-    
-    playerDuck: function () {
-        this.player.anchor.setTo(0, 1);
-        //change image and update the body size for the physics engine
-        this.player.loadTexture('playerDuck');
-        this.player.body.setSize(this.player.duckedDimensions.width, this.player.duckedDimensions.height);
-        //console.log("Duck height:" + this.player.duckedDimensions.height);
-        //console.log("Duck width:" + this.player.duckedDimensions.width);  
-        //we use this to keep track whether it's ducked or not
-        this.player.isDucked = true;
     },
     
     playerDead: function () {
@@ -705,38 +735,14 @@ SideScroller.Game.prototype = {
         pausedText.fixedToCamera = true;
         this.input.onDown.add(
             function() {
-                //pausedText.destroy();
+                pausedText.destroy();
                 this.game.paused = false;
             }, this);
-        
-        //this.openWindow;
     },
-    
-    /*openWindow: function() {
-        if ((tween !== null && tween.isRunning) || popup.scale.x === 1) {
-        return;
-        }
-        //  Create a tween that will pop-open the window, but only if it's not already tweening or open
-        tween = game.add.tween(popup.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
-        
-    },
-    
-    closeWindow: function() {
-        if (tween && tween.isRunning || popup.scale.x === 0.1) {
-            return;
-        }
-
-        //  Create a tween that will close the window, but only if it's not already tweening or closed
-        tween = this.game.add.tween(popup.scale).to( { x: 0.1, y: 0.1 }, 500, Phaser.Easing.Elastic.In, true);
-
-        this.game.paused = false;
-    },
-    */
     completeLevel: function() {
-        level = this.level+1;
         this.level1Music.stop();
         health = 6;
-        this.game.state.start('LevelFinish', level, score);
+        this.game.state.start('LevelFinish', this.game, level, score);
     },
     
     sfxOnOrOff: function(btn) {
@@ -755,12 +761,79 @@ SideScroller.Game.prototype = {
         }
     },
     
+    
+    //from here: http://www.html5gamedevs.com/topic/10121-count-down-timer/?hl=timer
+    updateTimer: function() {
+ 
+        minutes = Math.floor(this.game.time.time / 60000) % 60;
+
+        seconds = Math.floor(this.game.time.time / 1000) % 60;
+
+
+        //If any of the digits becomes a single digit number, pad it with a zero
+        
+        if (seconds < 10)
+            seconds = '0' + seconds;
+
+        if (minutes < 10)
+            minutes = '0' + minutes;
+
+        timer.text = minutes + ':'+ seconds;
+ 
+    },
+    
+    formatTime: function(s) {
+        // Convert seconds (s) to a nicely formatted and padded time string
+        var minutes = "0" + Math.floor(s / 60);
+        var seconds = "0" + (s - minutes * 60);
+        return minutes.substr(-2) + ":" + seconds.substr(-2);   
+    },
+    
+    endTimer: function() {
+        // Stop the timer when the delayed event triggers
+        timer.stop();
+        this.gameOver();
+        
+    },
+    
+    createEnemies: function (type, enemiesTotal) {
+                
+        if (type == "bunny") {
+            for (var i = 0; i < enemiesTotal; i++) {
+                enemies.push(new Enemy(i, this.game, this.player, enemyBullets, type));
+            }
+        }
+        
+        if (type == "bee") {
+            for (var i = 0; i < enemiesTotal; i++) {
+                beeEnemies.push(new Enemy(i, this.game, this.player, enemyBullets, type));
+            }
+        }
+        
+        if (type == "spider") {
+            for (var i = 0; i < enemiesTotal; i++) {
+                spiderEnemies.push(new Enemy(i, this.game, this.player, enemyBullets, type));
+            }
+        }     
+        
+    },
+    
     render: function () {
 
         //displays frame rate on screen
         this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
         //displays player co-ordinates etc. 
         this.game.debug.bodyInfo(this.player, 0, 80);
-    },
+        //Keep track of what level we're on
+        this.game.debug.text("Level: " + level, 40, 400, "#00ff00", "60px Courier");
+        
+        //display timer countdown
+        if (timer.running) {
+            this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), canvasWidth/2, canvasHeight*0.08, "#ff0");
+        }
+        else {
+            this.game.debug.text("Time's up!", 2, 14, "#0f0");
+        }
+    }
 
 };
