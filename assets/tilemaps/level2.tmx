@@ -1,19 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="70" height="6" tilewidth="70" tileheight="70" nextobjectid="1">
- <tileset firstgid="1" name="mushroomBackground" tilewidth="70" tileheight="70">
-  <image source="../images/mushroomBackground.png" width="980" height="980"/>
- </tileset>
- <tileset firstgid="197" name="mushroomtops" tilewidth="70" tileheight="70">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="70" height="6" tilewidth="70" tileheight="70" nextobjectid="98">
+ <tileset firstgid="1" name="mushroomtops" tilewidth="70" tileheight="70">
   <image source="../images/mushroomtops.png" width="490" height="490"/>
+  <tile id="33">
+   <properties>
+    <property name="sprite" value="visuals"/>
+    <property name="type" value="visuals"/>
+   </properties>
+  </tile>
  </tileset>
+ <tileset firstgid="50" name="level2bg" tilewidth="70" tileheight="70">
+  <image source="../images/level2/level2bg.png" width="1024" height="420"/>
+ </tileset>
+ <tileset firstgid="134" name="blankLayer" tilewidth="70" tileheight="70" spacing="2">
+  <image source="../images/blankLayer.png" width="70" height="70"/>
+ </tileset>
+ <tileset firstgid="135" name="poop" tilewidth="35" tileheight="29">
+  <image source="../images/icons/poop.png" width="35" height="29"/>
+ </tileset>
+ <tileset firstgid="136" name="heart" tilewidth="30" tileheight="25">
+  <image source="../images/heart.png" width="30" height="25"/>
+ </tileset>
+ <tileset firstgid="137" name="tiles_spritesheetCLEAR" tilewidth="70" tileheight="70" spacing="2">
+  <image source="../images/tiles_spritesheetCLEAR.png" width="914" height="936"/>
+ </tileset>
+ <layer name="blankLayer" width="70" height="6" opacity="0">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
  <layer name="backgroundLayer" width="70" height="6">
   <data encoding="csv">
-71,72,73,74,75,76,77,78,79,80,81,82,83,84,71,72,73,74,75,76,77,78,79,80,81,82,83,84,71,72,73,74,75,76,77,78,79,80,81,82,83,84,71,72,73,74,75,76,77,78,79,80,81,82,83,84,71,72,73,74,75,76,77,78,79,80,81,82,83,84,
-85,86,87,88,89,90,91,92,93,94,95,96,97,98,85,86,87,88,89,90,91,92,93,94,95,96,97,98,85,86,87,88,89,90,91,92,93,94,95,96,97,98,85,86,87,88,89,90,91,92,93,94,95,96,97,98,85,86,87,88,89,90,91,92,93,94,95,96,97,98,
-99,100,101,102,103,104,105,106,107,108,109,110,111,112,99,100,101,102,103,104,105,106,107,108,109,110,111,112,99,100,101,102,103,104,105,106,107,108,109,110,111,112,99,100,101,102,103,104,105,106,107,108,109,110,111,112,99,100,101,102,103,104,105,106,107,108,109,110,111,112,
-113,114,115,116,117,118,119,120,121,122,123,124,125,126,113,114,115,116,117,118,119,120,121,122,123,124,125,126,113,114,115,116,117,118,119,120,121,122,123,124,125,126,113,114,115,116,117,118,119,120,121,122,123,124,125,126,113,114,115,116,117,118,119,120,121,122,123,124,125,126,
-127,128,129,130,131,132,133,134,135,136,137,138,139,140,127,128,129,130,131,132,133,134,135,136,137,138,139,140,127,128,129,130,131,132,133,134,135,136,137,138,139,140,127,128,129,130,131,132,133,134,135,136,137,138,139,140,127,128,129,130,131,132,133,134,135,136,137,138,139,140,
-141,142,143,144,145,146,147,148,149,150,151,152,153,154,141,142,143,144,145,146,147,148,149,150,151,152,153,154,141,142,143,144,145,146,147,148,149,150,151,152,153,154,141,142,143,144,145,146,147,148,149,150,151,152,153,154,141,142,143,144,145,146,147,148,149,150,151,152,153,154
+50,51,52,53,54,55,56,57,58,59,60,61,62,63,50,51,52,53,54,55,56,57,58,59,60,61,62,63,50,51,52,53,54,55,56,57,58,59,60,61,62,63,50,51,52,53,54,55,56,57,58,59,60,61,62,63,50,51,52,53,54,55,56,57,58,59,60,61,62,63,
+64,65,66,67,68,69,70,71,72,73,74,75,76,77,64,65,66,67,68,69,70,71,72,73,74,75,76,77,64,65,66,67,68,69,70,71,72,73,74,75,76,77,64,65,66,67,68,69,70,71,72,73,74,75,76,77,64,65,66,67,68,69,70,71,72,73,74,75,76,77,
+78,79,80,81,82,83,84,85,86,87,88,89,90,91,78,79,80,81,82,83,84,85,86,87,88,89,90,91,78,79,80,81,82,83,84,85,86,87,88,89,90,91,78,79,80,81,82,83,84,85,86,87,88,89,90,91,78,79,80,81,82,83,84,85,86,87,88,89,90,91,
+92,93,94,95,96,97,98,99,100,101,102,103,104,105,92,93,94,95,96,97,98,99,100,101,102,103,104,105,92,93,94,95,96,97,98,99,100,101,102,103,104,105,92,93,94,95,96,97,98,99,100,101,102,103,104,105,92,93,94,95,96,97,98,99,100,101,102,103,104,105,
+106,107,108,109,110,111,112,113,114,115,116,117,118,119,106,107,108,109,110,111,112,113,114,115,116,117,118,119,106,107,108,109,110,111,112,113,114,115,116,117,118,119,106,107,108,109,110,111,112,113,114,115,116,117,118,119,106,107,108,109,110,111,112,113,114,115,116,117,118,119,
+120,121,122,123,124,125,126,127,128,129,130,131,132,133,120,121,122,123,124,125,126,127,128,129,130,131,132,133,120,121,122,123,124,125,126,127,128,129,130,131,132,133,120,121,122,123,124,125,126,127,128,129,130,131,132,133,120,121,122,123,124,125,126,127,128,129,130,131,132,133
 </data>
  </layer>
  <layer name="blockedLayer" width="70" height="6">
@@ -21,9 +49,308 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-209,215,216,210,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+177,0,0,0,0,0,13,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,19,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+13,19,20,14,0,0,0,0,0,0,0,0,18,6,7,0,0,0,30,37,0,0,0,0,0,0,26,0,0,0,0,0,30,36,36,36,36,36,36,24,37,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,33,0,0,0,0,0,0,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,33,0,0,0,0,0,0,249,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237,237
 </data>
  </layer>
+ <objectgroup name="itemLayer">
+  <object id="8" gid="44" x="455" y="420">
+   <properties>
+    <property name="sprite" value="stemBase"/>
+    <property name="type" value="stemBase"/>
+   </properties>
+  </object>
+  <object id="21" gid="35" x="744.333" y="419.667">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="22" gid="41" x="795" y="420.333">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="23" gid="39" x="455" y="315">
+   <properties>
+    <property name="sprite" value="stemTop"/>
+    <property name="type" value="stemTop"/>
+   </properties>
+  </object>
+  <object id="31" gid="46" x="2434" y="420">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="32" gid="46" x="2387" y="420.5">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="34" gid="41" x="2419" y="422">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="35" gid="47" x="2370.5" y="422">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="36" gid="35" x="2461" y="419.667">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="40" gid="47" x="1453" y="421.667">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="41" gid="41" x="1485" y="420.333">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="42" gid="28" x="1415.67" y="421.667">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="43" gid="34" x="1518.33" y="421.667">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="44" gid="34" x="1087.67" y="420.333">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="45" gid="41" x="1121" y="420.333">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="46" gid="41" x="2634" y="421">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="47" gid="47" x="2585.5" y="421">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="48" gid="46" x="2649" y="419">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="49" gid="46" x="2602" y="419.5">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="50" gid="35" x="2676" y="418.667">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="58" gid="135" x="310.667" y="158.667">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="59" gid="135" x="709.333" y="113.333">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="60" gid="135" x="1313.33" y="277.333">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="61" gid="135" x="3801.33" y="126.667">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="62" gid="135" x="4044" y="85.3333">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="63" gid="135" x="4282.67" y="132">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="64" gid="135" x="4469.33" y="181.333">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="65" gid="135" x="3093.33" y="341.333">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="66" gid="135" x="2276" y="226.667">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="67" gid="135" x="2368" y="157.333">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="68" gid="135" x="2484" y="102.667">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="69" gid="135" x="2721.33" y="169.333">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="70" gid="135" x="2788" y="242.667">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="71" gid="135" x="2608" y="100">
+   <properties>
+    <property name="sprite" value="poop"/>
+    <property name="type" value="poo"/>
+   </properties>
+  </object>
+  <object id="72" gid="136" x="1565.33" y="105.333">
+   <properties>
+    <property name="sprite" value="heart"/>
+    <property name="type" value="heart"/>
+   </properties>
+  </object>
+  <object id="73" gid="136" x="925.333" y="264">
+   <properties>
+    <property name="sprite" value="heart"/>
+    <property name="type" value="heart"/>
+   </properties>
+  </object>
+  <object id="74" gid="41" x="2047" y="420">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="75" gid="35" x="2092" y="420">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="76" gid="34" x="2068" y="421">
+   <properties>
+    <property name="sprite" value="visual"/>
+    <property name="type" value="visual"/>
+   </properties>
+  </object>
+  <object id="78" gid="201" x="4822" y="350">
+   <properties>
+    <property name="sprite" value="levelEnd"/>
+    <property name="type" value="levelEnd"/>
+   </properties>
+  </object>
+  <object id="80" gid="46" x="586" y="421"/>
+  <object id="81" gid="28" x="518" y="420"/>
+  <object id="82" gid="47" x="550" y="421"/>
+  <object id="87" gid="44" x="105" y="420">
+   <properties>
+    <property name="sprite" value="stemBase"/>
+    <property name="type" value="stemBase"/>
+   </properties>
+  </object>
+  <object id="90" gid="39" x="105" y="385">
+   <properties>
+    <property name="sprite" value="stemTop"/>
+    <property name="type" value="stemTop"/>
+   </properties>
+  </object>
+  <object id="91" gid="39" x="910" y="385">
+   <properties>
+    <property name="sprite" value="stemTop"/>
+    <property name="type" value="stemTop"/>
+   </properties>
+  </object>
+  <object id="92" gid="39" x="1295" y="385">
+   <properties>
+    <property name="sprite" value="stemTop"/>
+    <property name="type" value="stemTop"/>
+   </properties>
+  </object>
+  <object id="93" gid="39" x="1820" y="315">
+   <properties>
+    <property name="sprite" value="stemTop"/>
+    <property name="type" value="stemTop"/>
+   </properties>
+  </object>
+  <object id="94" gid="39" x="2520" y="385">
+   <properties>
+    <property name="sprite" value="stemTop"/>
+    <property name="type" value="stemTop"/>
+   </properties>
+  </object>
+  <object id="95" gid="44" x="1295" y="420">
+   <properties>
+    <property name="sprite" value="stemBase"/>
+    <property name="type" value="stemBase"/>
+   </properties>
+  </object>
+  <object id="96" gid="44" x="1820" y="420">
+   <properties>
+    <property name="sprite" value="stemBase"/>
+    <property name="type" value="stemBase"/>
+   </properties>
+  </object>
+  <object id="97" gid="44" x="2520" y="420">
+   <properties>
+    <property name="sprite" value="stemBase"/>
+    <property name="type" value="stemBase"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

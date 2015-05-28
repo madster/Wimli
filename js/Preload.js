@@ -20,25 +20,52 @@ SideScroller.Preload.prototype = {
 
 
     //main menu
+    this.load.image('mainMenuBackground', 'assets/images/menu/mainMenuBackground.png');     
     this.load.image('menubackground', 'assets/images/menu/menubackground.png');     
-    this.load.image('startBtn', 'assets/images/buttons/startBtn.png');
-    this.load.image('optionsBtn', 'assets/images/buttons/optionsBtn.png'); 
+    this.load.image('playBtn', 'assets/images/buttons/playBtn.png');
+    this.load.image('levelsBtn', 'assets/images/buttons/levelsBtn.png'); 
+    this.load.image('controlsBtn', 'assets/images/buttons/controlsBtn.png');    
     this.load.image('wimli', 'assets/images/player/startWimli.png');
     this.load.image('title', 'assets/images/text/title.png');
-
+    this.load.image('level1Btn', 'assets/images/buttons/level1Btn.png');
+    this.load.image('level2Btn', 'assets/images/buttons/level2Btn.png'); 
+    this.load.image('level3Btn', 'assets/images/buttons/level3Btn.png');  
+    this.load.image('closeBtn', 'assets/images/buttons/closeBtn.png'); 
+    this.load.image('levelMenuBackground', 'assets/images/menu/levelMenuBackground.png');
+    this.load.image('controlMenuBackground', 'assets/images/menu/controlMenuBackground.png');
+      
     this.load.audio('mainMenu', 'assets/audio/mainMenu.ogg');  
     //game assets
-    //level
+    
+    //level 1
+    
+    //Tiled tilemap
     this.load.tilemap('level1', 'assets/tilemaps/level1.json', null, Phaser.Tilemap.TILED_JSON);
-    this.load.image('blockedTiles', 'assets/images/tiles_spritesheet.png');
-    this.load.image('background', 'assets/images/blue_land.png');
-    this.load.spritesheet('levelspritesheet', 'assets/images/tiles_spritesheet.png', 70, 70);
-
-    //level 2
-    this.load.tilemap('level3', 'assets/tilemaps/level3.json', null, Phaser.Tilemap.TILED_JSON);
-      
-      
+    //blockedLayer
+    this.load.image('blockedTiles', 'assets/images/level1/tiles_spritesheet.png');
+    //backgroundLayer
+    this.load.image('level1Background', 'assets/images/level1/blue_land.png');
     this.load.audio('level1Music', 'assets/audio/level1.ogg');    
+      
+    //level 2
+    this.load.tilemap('level2', 'assets/tilemaps/level2.json', null, Phaser.Tilemap.TILED_JSON); 
+    this.load.image('l2BlockedTiles', 'assets/images/level2/mushroomtops.png'); 
+    this.load.image('l2BlockedTiles2', 'assets/images/tiles_spritesheetCLEAR.png');
+    this.load.image('level2Background', 'assets/images/level2/level2bg.png');
+    this.load.image('stem', 'assets/images/level2/stem.png');
+    this.load.image('stemTop', 'assets/images/level2/stemTop.png');
+    this.load.image('stemVine', 'assets/images/level2/stemVine.png');
+    this.load.image('stemBase', 'assets/images/level2/stemBase.png');      
+    this.load.image('stemCrown', 'assets/images/level2/stemCrown.png');  
+    this.load.audio('level2Music', 'assets/audio/level2.ogg');  
+      
+    //level 3
+    this.load.tilemap('level3', 'assets/tilemaps/level3.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.audio('level3Music', 'assets/audio/level3.ogg');   
+    this.load.image('l3BlockedTiles', 'assets/images/level3/level3spritesheet.png'); 
+    this.load.image('level3Background', 'assets/images/level3/level3bg.png');
+    this.load.image('l3BlockedTiles', 'assets/images/level3/level3spritesheet.png');
+      
     //player
     this.load.image('player', 'assets/images/player/player.png');
     this.load.image('playerDuck', 'assets/images/player/player_duck.png');
@@ -58,6 +85,7 @@ SideScroller.Preload.prototype = {
     this.load.image('peePower', 'assets/images/icons/peePower.png');
     this.load.image('levelStart', 'assets/images/icons/levelStart.png');
     this.load.image('levelEnd', 'assets/images/icons/levelEnd.png');
+    
 
     //buttons
     this.load.spritesheet('buttons', 'assets/images/buttons/btnSpritesheet.png', 35, 35, 10);
@@ -75,7 +103,7 @@ SideScroller.Preload.prototype = {
     this.load.image('mainMenuBtn', 'assets/images/buttons/mainMenuBtn.png');
     this.load.image('nextBtn', 'assets/images/buttons/nextBtn.png');   
     this.load.image('retryBtn', 'assets/images/buttons/retryBtn.png');  
-    this.load.image('levelComplete', 'assets/images/text/levelComplete.png');  
+    this.load.image('levelCompleteTitle', 'assets/images/text/levelComplete.png');  
     this.load.audio('gameOver', 'assets/audio/gameOver.ogg');  
 
     //audio

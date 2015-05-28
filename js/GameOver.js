@@ -1,9 +1,14 @@
 var SideScroller = SideScroller || {};
 
-//loading the game assets
+var level;
+
 SideScroller.GameOver = function(game){};
 
 SideScroller.GameOver.prototype = {
+    
+    init: function() {
+    },
+    
     create: function() {
         
         this.gameOverMusic = this.add.audio('gameOver', 1, true);
@@ -23,7 +28,7 @@ SideScroller.GameOver.prototype = {
     },
     startGame: function() {
         this.gameOverMusic.stop();
-        this.state.start('Game');
+        this.state.start('Level1');
     },
     
     returnToMenu: function() {

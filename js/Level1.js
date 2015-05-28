@@ -13,8 +13,8 @@ Enemy = function (index, game, player, enemyBullets, type) {
     this.fireRate = 10000; // low fire rate
     this.nextFire = 0;
     this.alive = true;
-    //this.enemy = enemy;
-    
+    spiderVel = [-200, 200];
+    spiderVelocity = this.game.rnd.pick(spiderVel);
     // enemies shouldn't generate in the first "frame" of the game
     var min = game.canvas.width;
     var max = game.world.width;
@@ -53,10 +53,11 @@ Enemy = function (index, game, player, enemyBullets, type) {
         this.enemy3.anchor.set(0.5, 1);
         this.enemy3.name = index.toString();
         game.physics.enable(this.enemy3, Phaser.Physics.ARCADE);
-        this.enemy3.body.immovable = true;
+        this.enemy3.body.immovable = false;
         this.enemy3.body.collideWorldBounds = true;
         this.enemy3.body.bounce.setTo(0, 0);
         this.enemy3.body.gravity.y = gravity;
+        this.enemy3.body.velocity.x = spiderVelocity;
     }
 };
 
@@ -93,20 +94,12 @@ Enemy.prototype.damage = function(type) {
 
 }
 
+Enemy.prototype.changeDirection = function() {
+    spiderVelocity = spiderVelocity * -1;
+    this.enemy3.body.velocity.x = spiderVelocity;
+}
+
 Enemy.prototype.update = function() {
-    
-    /*if (this.type=="bunny") {  
-        if (this.game.physics.arcade.distanceBetween(this.enemy, this.player) < canvasWidth/2) {
-            if (this.game.time.now > this.nextFire && this.enemyBullets.countDead() > 0) {
-            this.nextFire = this.game.time.now + this.fireRate;
-
-            var bullet = this.enemyBullets.getFirstDead();
-
-            bullet.reset(this.enemy.x, this.enemy.y);
-
-            bullet.rotation = this.game.physics.arcade.moveToObject(bullet, this.player, 100);
-            }
-        }*/
 
         if (this.type=="bee") {
             if (this.game.physics.arcade.distanceBetween(this.enemy2, this.player) < canvasWidth/2) {
@@ -120,28 +113,16 @@ Enemy.prototype.update = function() {
                 bullet.rotation = this.game.physics.arcade.moveToObject(bullet, this.player, 100);
                 }
             }
+            
+            
+        //this.enemy3.body.velocity.x = spiderVelocity;
         }
-/*
-        if (this.game.physics.arcade.distanceBetween(this.enemy, this.player) < canvasWidth/2) {
-            if (this.type=="spider") {
-                if (this.game.time.now > this.nextFire && this.enemyBullets.countDead() > 0) {
-                this.nextFire = this.game.time.now + this.fireRate;
-
-                var bullet = this.enemyBullets.getFirstDead();
-
-                bullet.reset(this.enemy.x, this.enemy.y);
-
-                bullet.rotation = this.game.physics.arcade.moveToObject(bullet, this.player, 100);
-                }
-            }
-        }*/
-    //}
     };
 
 var gravity = 1000;
 var outOfBoundsHeight = 340;
-var startPosX = 100;
-var startPosY = 300;
+var startPosX = 120;
+var startPosY = 50;
 var scoreLbl = null;
 var score = 0;
 var health = 6;
@@ -156,57 +137,65 @@ var shooter;
 var canvasWidth, canvasHeight;
 var explosions;
 var cursors;
-var level;
+
 var timer, timerEvent, text;
 var seconds = 0;
 var minutes = 0;
 var enemyCount, bunnyTotal, spiderTotal, beeTotal;
+var spiderVelocity;
+var gameOver, gameOverTitle;
 
 //                 //
 // GAME PROTOTYPE //
 //                 //
 
-SideScroller.Game = function (level) {};
+SideScroller.Level1 = function () {
+    health = 6;
+    score = 0;
+};
 
-SideScroller.Game.prototype = {
-
-    init: function(level) {
-        this.level = level;
-    },
+SideScroller.Level1.prototype = {
     
     preload: function () {
         //if true then advanced profiling, including the fps rate, fps min/max and msMin/msMax are updated
         this.game.time.advancedTiming = true;
     },
     
-    create: function () {    
+    create: function () {
         
-        console.log(this.level);
-        
-        if (this.level == 1) {
-            console.log("LEVEL 1");
-            this.map = this.game.add.tilemap('level1');
-            bunnyTotal = 5;
-            beeTotal = 5;
-            spiderTotal = 5;
-            //enemyCount = 0;
-        }
-        if (this.level == 2) {
-            console.log("LEVEL 2");
-            this.map = this.game.add.tilemap('level3');
-        }
-        //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
+        //                //    
+        // LEVEL SPECIFIC //
+        //                //
+        this.map = this.game.add.tilemap('level1');
+
+        //level1
+       //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
         this.map.addTilesetImage('tiles_spritesheet', 'blockedTiles');
-        this.map.addTilesetImage('blue_land', 'background');
-        
+        this.map.addTilesetImage('blue_land', 'level1Background');
+        this.map.addTilesetImage('blankLayer', 'blank');
+        bunnyTotal = 4;
+        beeTotal = 4;
+        spiderTotal = 4;
+
         //create layers
         this.backgroundLayer = this.map.createLayer('backgroundLayer');
         this.blockedLayer = this.map.createLayer('blockedLayer');
+        this.blankLayer = this.map.createLayer('blankLayer');
+        
 
         //collision with anything in blockedLayer. 
         //params = (start, stop, collides, layer, recalculate)
         this.map.setCollisionBetween(0, 5000, true, 'blockedLayer');
+        this.map.setCollisionBetween(0, 5000, true, 'blankLayer');
 
+        
+        this.level1Music = this.game.add.audio('level1Music', 0.5, true);
+        this.level1Music.play();
+        
+        //                    //    
+        // NOT LEVEL SPECIFIC //
+        //                    //
+        
         //resizes the game world to match the layer dimensions
         this.backgroundLayer.resizeWorld();
         
@@ -222,6 +211,11 @@ SideScroller.Game.prototype = {
         this.player.animations.add('walkForward', [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 20, false);
         this.player.animations.add('walkBack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 20, false);
         this.player.anchor.setTo(0.5, 0.5);
+        
+        //  Point to shoot projectiles from
+        // allows rotation, if this had been done on the player object, the graphic would have rotated, which we don't want
+        this.shooter = this.game.add.sprite(startPosX, startPosY, 'blank');
+        this.shooter.anchor.setTo(0.5, 0.5);
 
         //the camera will follow the player in the world
         this.game.camera.follow(this.player);
@@ -233,11 +227,7 @@ SideScroller.Game.prototype = {
         //create enemy
         var x = this.game.rnd.between(80, this.game.world.width);
         var y = this.game.rnd.between(0, 113);
-        
-        //  Point to shoot projectiles from
-        // allows rotation, if this had been done on the player object, the graphic would have rotated, which we don't want
-        this.shooter = this.game.add.sprite(startPosX, startPosY, 'blank');
-        this.shooter.anchor.setTo(0.5, 0.5);
+       
         
         //make a group of enemy projectiles
         enemyBullets = this.game.add.group();
@@ -305,12 +295,12 @@ SideScroller.Game.prototype = {
 
         //sounds
         //this.game.sound.mute = false;
-        this.level1Music = this.game.add.audio('level1Music', 0.5, true);
-        this.level1Music.play();
+        
         this.poopSound = this.game.add.audio('poop', 0.5);
         this.heartSound = this.game.add.audio('heart', 1);
         //this.waterSound = this.game.add.audio('water');
-        
+        this.gameOverMusic = this.add.audio('gameOver', 1, true);
+
         
         // HUD //
         
@@ -363,6 +353,58 @@ SideScroller.Game.prototype = {
         // Start the timer
         timer.start();
         
+        //game over menu
+        menuBackground = this.game.add.sprite(canvasWidth*0.5, canvasHeight*0.5, 'menubackground');
+        menuBackground.anchor.setTo(0.5, 0.5);
+        menuBackground.visible = false;
+        menuBackground.fixedToCamera = true;
+        gameOverTitle = this.game.add.sprite(canvasWidth*0.5, canvasHeight*0.3, 'gameOverTitle');
+        gameOverTitle.anchor.setTo(0.5, 0.5);
+        gameOverTitle.visible = false;
+        gameOverTitle.fixedToCamera = true;
+        
+        wimli = this.add.sprite(canvasWidth*0.5, canvasHeight*0.70, 'player');
+        wimli.anchor.setTo(0.5, 0.5);
+        wimli.visible = false;
+        wimli.fixedToCamera = true;
+        
+        wimliDead = this.add.sprite(canvasWidth*0.5, canvasHeight*0.70, 'playerDead');
+        wimliDead.anchor.setTo(0.5, 0.5);
+        wimliDead.visible = false;
+        wimliDead.fixedToCamera = true;
+        
+        //level complete menu
+        levelCompleteTitle = this.game.add.sprite(canvasWidth*0.5, canvasHeight*0.3, 'levelCompleteTitle');
+        levelCompleteTitle.anchor.setTo(0.5, 0.5);
+        levelCompleteTitle.visible = false;
+        levelCompleteTitle.fixedToCamera = true;
+        
+        
+        //menu buttons
+        mainMenuBtn = this.add.button(canvasWidth*0.3, canvasHeight*0.5, 'mainMenuBtn', this.returnToMenu, this, 1, 0, 2);
+        mainMenuBtn.width = 150;
+        mainMenuBtn.height = 45;
+        mainMenuBtn.anchor.setTo(0.5, 0.5);
+        mainMenuBtn.visible = false;
+        mainMenuBtn.fixedToCamera = true;
+        mainMenuBtn.input.useHandCursor = true;
+        
+        retryBtn = this.add.button(canvasWidth*0.7, canvasHeight*0.5, 'retryBtn', this.startGame, this, 1, 0, 2);
+        retryBtn.width = 150;
+        retryBtn.height = 45;
+        retryBtn.anchor.setTo(0.5, 0.5);
+        retryBtn.visible = false;
+        retryBtn.fixedToCamera = true;
+        retryBtn.input.useHandCursor = true;
+        
+        nextBtn = this.add.button(canvasWidth*0.7, canvasHeight*0.5, 'nextBtn', this.nextLevel, this, 1, 0, 2);
+        nextBtn.width = 150;
+        nextBtn.height = 45;
+        nextBtn.anchor.setTo(0.5, 0.5);
+        nextBtn.visible = false;
+        nextBtn.fixedToCamera = true;
+        nextBtn.input.useHandCursor = true;
+       
     },
 
     //find objects in a Tiled layer that contain a property called "type" equal to a certain value
@@ -402,14 +444,18 @@ SideScroller.Game.prototype = {
 
        //overlap between player bullets and enemy bullets
        //if player and enemy bullets hit each other, the enemy bullet is destroyed
-       this.game.physics.arcade.overlap(enemyBullets, playerBullets, this.bulletHitBullet, null, this)
+       this.game.physics.arcade.overlap(enemyBullets, playerBullets, this.bulletHitBullet, this.bulletHitBullet, this)
        
         //collision for bunny enemies
         for (var i = 0; i < enemies.length; i++) {
             if (enemies[i].alive) {                
 
                 //collision between player body and enemy body
-                this.game.physics.arcade.collide(this.player, enemies[i].enemy, this.enemyHitPlayer, null, this);
+                //Params (object1, object2, collideCallback, processCallback, callbackContext)
+                this.game.physics.arcade.collide(this.player, enemies[i].enemy, this.enemyHitPlayer, this.spiderHitPlayer, this);
+                
+                //collision between player body and enemy body
+                //this.game.physics.arcade.collide(this.player, enemies[i].enemy, this.enemyHitPlayer, null, this);
 
                 //overlap between player bullets and enemies
                 this.game.physics.arcade.overlap(playerBullets, enemies[i].enemy, this.bulletHitBunny, null, this);
@@ -426,8 +472,6 @@ SideScroller.Game.prototype = {
         //collision for bee enemies
         for (var i = 0; i < beeEnemies.length; i++) {
             if (beeEnemies[i].alive) {   
-                console.log()
-
                 //collision between player body and enemy body
                 this.game.physics.arcade.collide(this.player, beeEnemies[i].enemy2, this.enemyHitPlayer, null, this);
 
@@ -448,7 +492,8 @@ SideScroller.Game.prototype = {
             if (spiderEnemies[i].alive) {                
 
                 //collision between player body and enemy body
-                this.game.physics.arcade.collide(this.player, spiderEnemies[i].enemy3, this.enemyHitPlayer, null, this);
+                //Params (object1, object2, collideCallback, processCallback, callbackContext)
+                this.game.physics.arcade.collide(this.player, spiderEnemies[i].enemy3, this.enemyHitPlayer, this.spiderHitPlayer, this);
 
                 //overlap between player bullets and enemies
                 this.game.physics.arcade.overlap(playerBullets, spiderEnemies[i].enemy3, this.bulletHitSpider, null, this);
@@ -456,7 +501,12 @@ SideScroller.Game.prototype = {
                 //collision between enemies and platforms
                 this.game.physics.arcade.collide(spiderEnemies[i].enemy3, this.blockedLayer, null, null, this);
                 
+                //collision between enemies and end of platform
+                this.game.physics.arcade.collide(spiderEnemies[i].enemy3, this.blankLayer, this.spiderChangeDirection, null, this);
+                
                 spiderEnemies[i].enemy3.animations.play('spiderWalk', 20, true);
+                
+                spiderEnemies[i].enemy3.body.x.velocity = spiderVelocity;
                 
                 spiderEnemies[i].update();
             }
@@ -487,11 +537,6 @@ SideScroller.Game.prototype = {
             if (this.cursors.down.isDown || this.game.input.keyboard.isDown(Phaser.Keyboard.S)) {
             }
         }
-            
-            //if player reaches end of level, finish game (game over just now but will be changed to completeLevel)
-            if (this.player.x >= this.game.world.width) {
-                this.gameOver();
-            }
             
             //game over if player falls off platform
             if(this.player.y > outOfBoundsHeight) {
@@ -551,13 +596,60 @@ SideScroller.Game.prototype = {
         
     },
     
+    spiderChangeDirection: function (enemy3) {  
+            spiderEnemies[enemy3.name].changeDirection();  
+    },
+       
+    
     enemyHitPlayer: function () {
        this.decreaseItem("heart");
     },
     
+    spiderHitPlayer: function (player, enemy3) {
+        
+        if (this.player.body.blocked.up == false && this.player.body.blocked.down == false && 
+            this.player.body.blocked.right == false && this.player.body.blocked.left == false) {
+            
+            this.player.body.velocity.y=-700;
+            this.increaseItem("score");
+            spiderEnemies[enemy3.name].damage("spider");  
+            return false
+        }
+        else {
+            return true;
+        }
+    },
+    
+    bunnyHitPlayer: function(player, enemy) {
+        
+        if (this.player.body.blocked.up == false && this.player.body.blocked.down == false && 
+            this.player.body.blocked.right == false && this.player.body.blocked.left == false) {
+            
+            this.player.body.velocity.y=-700;
+        var destroyed = bunnyEnemies[enemy.name].damage("spider");  
+             if (destroyed) {
+                //explosion when enemy gets hit by player bullet
+                this.increaseItem("score");
+                var explosionAnimation = explosions.getFirstExists(false);
+                explosionAnimation.reset(enemy.x, enemy.y);
+                explosionAnimation.play('kaboom', 30, false, true);
+                return false;
+            }
+            
+            /*else if(this.player.body.blocked.up == false && this.player.body.blocked.down == true && 
+            this.player.body.blocked.right == false && this.player.body.blocked.left == false) {
+                this.decreaseItem("heart");
+            }*/
+            else {
+                return true;
+                //this.decreaseItem("heart");
+                console.log("hit else");
+            }
+        }
+    },
+    
     fire: function () {        
         if (this.game.time.now > nextFire && playerBullets.countDead() > 0){
-            this.decreaseItem("water");
             nextFire = this.game.time.now + fireRate;
             
             var bullet = playerBullets.getFirstExists(false);
@@ -568,7 +660,7 @@ SideScroller.Game.prototype = {
 
     },
     
-    collect: function (player, item) {
+    collect: function (player, item, enemy3) {
         itemType = item.sprite;
         
         if (itemType == "poop") {
@@ -584,15 +676,9 @@ SideScroller.Game.prototype = {
                 this.heartSound.play();
             }   
         }
-        /*else if (itemType == "water") {
-            item.destroy();
-            this.waterSound.play();
-        }*/
         else if (itemType == "levelEnd") {
-            //sound
             this.game.time.events.add(700, this.completeLevel, this);
         }
-       
     },
     
     //create collectable items
@@ -602,9 +688,13 @@ SideScroller.Game.prototype = {
         
         this.addItemLayer('poo');
         this.addItemLayer('heart');
-        //this.addItemLayer('water');
         this.addItemLayer('levelEnd');
-        this.addItemLayer('levelStart');
+        
+        //                //    
+        // LEVEL SPECIFIC //
+        //                //
+        this.addItemLayer('stemBase');
+        this.addItemLayer('stemTop');
     },
     
     addItemLayer: function (itemName) {
@@ -616,14 +706,36 @@ SideScroller.Game.prototype = {
     },
     
     gameOver: function () {
-        score = 0;
-        health = 6;
         this.level1Music.stop();
-        this.game.state.start('GameOver');
+        this.player.visible = false;
+        menuBackground.visible = true;
+        gameOverTitle.visible = true;
+        wimliDead.visible = true;
+        mainMenuBtn.visible = true;
+        retryBtn.visible = true;
+        this.endTimer();
+        this.resetVariables();
     },
-
+    
+    completeLevel: function () {
+        this.level1Music.stop();
+        this.player.visible = false;
+        menuBackground.visible = true;
+        levelCompleteTitle.visible = true;
+        wimli.visible = true;
+        mainMenuBtn.visible = true;
+        nextBtn.visible = true;
+        this.endTimer();
+        this.resetVariables();
+    },
+    
+    resetVariables: function () {
+        health = 6;
+        score = 0;
+    },
+    
     playerForward: function () {
-        this.player.body.velocity.x = 700;
+        this.player.body.velocity.x = 600;
         this.player.animations.play('walkForward');
         //this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
         this.player.isMoving = true;
@@ -724,11 +836,6 @@ SideScroller.Game.prototype = {
         }
     },
     
-    enemyMove: function () {
-        this.enemy.body.velocity.x = 10;
-        this.enemy.isMoving = true;
-    },
-    
     managePause: function() {
         this.game.paused = true;
         var pausedText = this.add.text(canvasWidth/2, canvasHeight/2, "Game paused", this._fontStyle);
@@ -739,14 +846,8 @@ SideScroller.Game.prototype = {
                 this.game.paused = false;
             }, this);
     },
-    completeLevel: function() {
-        this.level1Music.stop();
-        health = 6;
-        this.game.state.start('LevelFinish', this.game, level, score);
-    },
     
     sfxOnOrOff: function(btn) {
-        
         btn.on = !btn.on;
         btn.setFrames(4, (btn.on)?3:9, 3);
         btn.frame = (btn.on)?3:5;
@@ -792,7 +893,6 @@ SideScroller.Game.prototype = {
     endTimer: function() {
         // Stop the timer when the delayed event triggers
         timer.stop();
-        this.gameOver();
         
     },
     
@@ -818,21 +918,33 @@ SideScroller.Game.prototype = {
         
     },
     
+    startGame: function() {
+        this.state.restart('Level1');
+    },
+    
+    returnToMenu: function() {
+        this.state.start('MainMenu');
+    },
+    
+    nextLevel: function() {
+        this.state.start('Level2');
+    },
+    
     render: function () {
 
         //displays frame rate on screen
-        this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
+        //this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
         //displays player co-ordinates etc. 
-        this.game.debug.bodyInfo(this.player, 0, 80);
-        //Keep track of what level we're on
-        this.game.debug.text("Level: " + level, 40, 400, "#00ff00", "60px Courier");
+        //this.game.debug.bodyInfo(this.player, 0, 80);
+        
+        var timerStyle = { font: "30px Arial", fill: "#ff0044", align: "center" };
         
         //display timer countdown
         if (timer.running) {
-            this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), canvasWidth/2, canvasHeight*0.08, "#ff0");
+            this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), canvasWidth/2, canvasHeight*0.08, "#ff0", timerStyle);
         }
         else {
-            this.game.debug.text("Time's up!", 2, 14, "#0f0");
+            this.game.debug.text("Time's up!");
         }
     }
 

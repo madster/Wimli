@@ -1,12 +1,14 @@
 var SideScroller = SideScroller || {};
 
+var level;
+
 //loading the game assets
 SideScroller.LevelFinish = function(game, level, score){};
 
 SideScroller.LevelFinish.prototype = {
     
     init: function(level) {
-        this.level = level;
+        level = this.level;
     },
     
     create: function() {
@@ -28,15 +30,12 @@ SideScroller.LevelFinish.prototype = {
         scoreLbl.anchor.set(0.5, 0.5);
         scoreLbl.text = score;
         
-        var levelLbl = this.game.add.text(canvasWidth * 0.06, canvasHeight * 0.08, "text", style);
-        levelLbl.anchor.set(0.5, 0.5);
-        levelLbl.text = "Level " + level + "complete";
-        
     },
     nextLevel: function() {
         score = 0;
+        level = level + 1;
         //Params(state, clearCache, clearGameWorld,level
-        this.state.start('Game', level+1)
+        this.state.start('Level2', true, false, level)
     },
     
     returnToMenu: function() {
